@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>Cadastro Atletas - Ribas do Rio Pardo</title>
+  <title>MS Pedalando para o Futuro - Cadastro de Atletas</title>
   <link href="https://fonts.googleapis.com" rel="preconnect"/>
   <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
@@ -75,6 +75,13 @@
       to { opacity: 1; transform: translateX(-50%) translateY(0); }
     }
     .delete-btn:hover { background: #fee2e2; }
+    .logo-pulse {
+      animation: logoPulse 3s ease-in-out infinite;
+    }
+    @keyframes logoPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
   </style>
 </head>
 <body class="bg-surface font-body text-on-surface min-h-screen selection:bg-primary/20 bg-mesh">
@@ -90,11 +97,11 @@
       <span class="material-symbols-outlined cursor-pointer hover:bg-white/20 rounded-full p-1" onclick="toggleSidebar()">close</span>
     </div>
     <div class="flex items-center gap-3">
-      <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
-        <span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+      <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center overflow-hidden">
+        <img src="logo.png" alt="Logo" class="w-10 h-10 object-contain">
       </div>
       <div>
-        <p class="font-plus-jakarta font-bold">Coordenador</p>
+        <p class="font-plus-jakarta font-bold text-sm leading-tight">MS Pedalando<br>para o Futuro</p>
         <p class="text-xs text-blue-100">Ribas do Rio Pardo/MS</p>
       </div>
     </div>
@@ -155,10 +162,10 @@
   <div class="flex items-center justify-between px-6 h-16 w-full max-w-md mx-auto">
     <div class="flex items-center gap-3">
       <span class="material-symbols-outlined text-blue-600 cursor-pointer hover:bg-blue-50 rounded-full p-1 transition-colors" onclick="toggleSidebar()">menu</span>
-      <h1 class="font-plus-jakarta text-lg font-bold tracking-tight text-blue-600" id="pageTitle">Cadastro Atletas</h1>
+      <h1 class="font-plus-jakarta text-lg font-bold tracking-tight text-blue-600" id="pageTitle">MS Pedalando</h1>
     </div>
     <div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center overflow-hidden">
-      <span class="material-symbols-outlined text-gray-500" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+      <img src="logo.png" alt="Logo" class="w-8 h-8 object-contain">
     </div>
   </div>
 </header>
@@ -168,11 +175,11 @@
 <!-- PAGE: HOME -->
 <main class="page active pt-24 pb-32 px-6 max-w-md mx-auto" id="page-home">
   <section class="mb-12 text-center">
-    <div class="inline-flex items-center justify-center w-24 h-24 rounded-3xl bg-gradient-to-br from-primary to-primary-container shadow-2xl shadow-primary/30 mb-8 transform -rotate-3">
-      <span class="material-symbols-outlined text-5xl text-white" style="font-variation-settings: 'FILL' 1;">shield_with_heart</span>
+    <div class="inline-flex items-center justify-center w-28 h-28 rounded-3xl bg-white shadow-2xl shadow-primary/20 mb-8 logo-pulse overflow-hidden">
+      <img src="logo.png" alt="MS Pedalando para o Futuro" class="w-24 h-24 object-contain">
     </div>
-    <h2 class="font-plus-jakarta text-4xl font-extrabold tracking-tight text-on-surface leading-tight mb-3">📊 Cadastro Alunos/Atletas</h2>
-    <p class="text-on-surface-variant font-medium text-lg leading-relaxed max-w-[280px] mx-auto opacity-80">Projeto Esportivo — Ribas do Rio Pardo/MS</p>
+    <h2 class="font-plus-jakarta text-3xl font-extrabold tracking-tight text-on-surface leading-tight mb-2">🚴 MS Pedalando<br>para o Futuro</h2>
+    <p class="text-on-surface-variant font-medium text-base leading-relaxed max-w-[300px] mx-auto opacity-80">Cadastro de Alunos/Atletas<br>Ribas do Rio Pardo/MS</p>
   </section>
   <div class="grid grid-cols-1 gap-6">
     <button onclick="showPage('cadastro')" class="group relative overflow-hidden bg-surface-container-lowest rounded-3xl p-8 text-left transition-all duration-300 active:scale-95 shadow-sm hover:shadow-xl hover:shadow-tertiary/10">
@@ -203,8 +210,8 @@
       </button>
     </div>
     <div class="mt-4 p-6 rounded-3xl bg-surface-container-low flex items-center gap-4">
-      <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-primary shadow-sm">
-        <span class="material-symbols-outlined text-xl">info</span>
+      <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center overflow-hidden shadow-sm">
+        <img src="logo.png" alt="Logo" class="w-7 h-7 object-contain">
       </div>
       <p class="text-xs text-on-surface-variant font-medium uppercase tracking-wider" id="homeCounter">Total de 0 atletas cadastrados</p>
     </div>
@@ -255,6 +262,7 @@
       <label class="block text-sm font-semibold mb-1">Modalidade *</label>
       <select id="modalidade" required class="w-full px-4 py-3 rounded-2xl border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 bg-white transition-all">
         <option value="">Selecione</option>
+        <option value="Ciclismo">🚴 Ciclismo</option>
         <option value="Futebol">⚽ Futebol</option>
         <option value="Futsal">⚽ Futsal</option>
         <option value="Vôlei">🏐 Vôlei</option>
@@ -366,11 +374,6 @@
   </div>
 </nav>
 
-<!-- BACKGROUND DECORATION -->
-<div class="fixed top-1/2 -right-20 -z-10 opacity-10 pointer-events-none transform -translate-y-1/2">
-  <img alt="Sport Background" class="w-[400px]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeZQI6nqC5UgjXmIXptwBN1QR0NOrq2xEd4gBbYYvJi5KjMP_04Fko4QAJYCZKdPPU-rNkNQQAlam4PF2LmZiK8cTLBr3QpKOjXZN79GflzCvgklcIUmJQbRFgt6KppSQQGVVIIQjH4ZcAiaJMQ27lUNBOi2yQ4EMXcUIz_eddSCL_9GU4Mka2MJAik8_dT7ioqeDdrDLcgxB1ZKr8l-l6weTgvZJUus-QouSIBawRo7iguGQqv4GDYRlLEUgPcj-ucYGMgn5BiSz4"/>
-</div>
-
 <script>
 // ==================== DATABASE (localStorage) ====================
 function getAlunos() {
@@ -386,7 +389,6 @@ function showPage(page) {
   const el = document.getElementById('page-' + page);
   if (el) el.classList.add('active');
 
-  // Update nav
   document.querySelectorAll('.nav-btn').forEach(btn => {
     btn.className = 'nav-btn flex flex-col items-center justify-center px-4 py-2 rounded-2xl transition-all text-slate-400';
     btn.querySelector('.material-symbols-outlined').style.fontVariationSettings = "'FILL' 0";
@@ -397,11 +399,9 @@ function showPage(page) {
     activeNav.querySelector('.material-symbols-outlined').style.fontVariationSettings = "'FILL' 1";
   }
 
-  // Update title
-  const titles = { home: 'Cadastro Atletas', cadastro: 'Novo Cadastro', lista: 'Alunos Cadastrados', estatisticas: 'Estatísticas', detalhe: 'Detalhes do Aluno' };
-  document.getElementById('pageTitle').textContent = titles[page] || 'Cadastro Atletas';
+  const titles = { home: 'MS Pedalando', cadastro: 'Novo Cadastro', lista: 'Alunos Cadastrados', estatisticas: 'Estatísticas', detalhe: 'Detalhes do Aluno' };
+  document.getElementById('pageTitle').textContent = titles[page] || 'MS Pedalando';
 
-  // Refresh data
   if (page === 'home') updateHome();
   if (page === 'lista') renderLista();
   if (page === 'estatisticas') renderEstatisticas();
