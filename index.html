@@ -1,673 +1,1445 @@
 <!DOCTYPE html>
-<html class="light" lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>MS Pedalando para o Futuro - Cadastro de Atletas</title>
-  <link href="https://fonts.googleapis.com" rel="preconnect"/>
-  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <script>
-    tailwind.config = {
-      darkMode: "class",
-      theme: {
-        extend: {
-          colors: {
-            "surface-container-high": "#e6e8f2",
-            "surface-container-low": "#f2f3fd",
-            "on-surface-variant": "#414754",
-            "tertiary": "#34a853",
-            "on-surface": "#191c23",
-            "surface-container-highest": "#e0e2ec",
-            "surface-container": "#ecedf7",
-            "surface-container-lowest": "#ffffff",
-            "surface-variant": "#e0e2ec",
-            "primary": "#005bbf",
-            "primary-container": "#1a73e8",
-            "outline-variant": "#c1c6d6",
-            "outline": "#727785",
-            "surface": "#f9f9ff",
-            "error": "#ba1a1a"
-          },
-          fontFamily: {
-            "headline": ["Plus Jakarta Sans"],
-            "body": ["Inter"],
-            "label": ["Inter"]
-          },
-          borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "3xl": "1.5rem", "full": "9999px"},
-        },
-      },
-    }
-  </script>
-  <style>
-    .material-symbols-outlined {
-      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-    }
-    .font-plus-jakarta { font-family: 'Plus Jakarta Sans', sans-serif; }
-    .bg-mesh {
-      background-color: #f9f9ff;
-      background-image: radial-gradient(at 0% 0%, rgba(26, 115, 232, 0.05) 0px, transparent 50%), 
-                        radial-gradient(at 100% 100%, rgba(52, 168, 83, 0.05) 0px, transparent 50%);
-    }
-    body { min-height: 100dvh; }
-    .page { display: none; }
-    .page.active { display: block; }
-    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 60; }
-    .sidebar-overlay.open { display: block; }
-    .sidebar {
-      position: fixed; top: 0; left: -300px; width: 280px; height: 100%; 
-      background: white; z-index: 70; transition: left 0.3s ease;
-      box-shadow: 4px 0 24px rgba(0,0,0,0.1); overflow-y: auto;
-    }
-    .sidebar.open { left: 0; }
-    .help-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 80; align-items: center; justify-content: center; }
-    .help-modal.open { display: flex; }
-    .toast {
-      position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%);
-      background: #34a853; color: white; padding: 12px 24px; border-radius: 12px;
-      font-weight: 600; z-index: 100; display: none; box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-    }
-    .toast.show { display: block; animation: fadeInUp 0.3s ease; }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateX(-50%) translateY(20px); }
-      to { opacity: 1; transform: translateX(-50%) translateY(0); }
-    }
-    .delete-btn:hover { background: #fee2e2; }
-    .logo-pulse {
-      animation: logoPulse 3s ease-in-out infinite;
-    }
-    @keyframes logoPulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.03); }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📊 Cadastro Alunos/Atletas</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<style>
+:root {
+  --primary: #1a73e8;
+  --primary-dark: #1557b0;
+  --primary-light: #e8f0fe;
+  --green: #34a853;
+  --green-light: #e6f4ea;
+  --yellow: #f9ab00;
+  --yellow-light: #fef7e0;
+  --red: #ea4335;
+  --red-light: #fce8e6;
+  --purple: #9334e6;
+  --purple-light: #f3e8fd;
+  --gray: #5f6368;
+  --gray-light: #f1f3f4;
+  --blue-light: #d2e3fc;
+  --bg: #f0f2f5;
+  --card: #ffffff;
+  --shadow: 0 2px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 30px rgba(0,0,0,0.12);
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: #1a1a2e;
+  min-height: 100vh;
+}
+
+/* HEADER */
+.header {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: white;
+  padding: 20px;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-lg);
+}
+.header h1 { font-size: 1.4rem; font-weight: 700; }
+.header p { font-size: 0.85rem; opacity: 0.85; margin-top: 4px; }
+
+/* NAV TABS */
+.nav-tabs {
+  display: flex;
+  background: white;
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 72px;
+  z-index: 99;
+}
+.nav-tab {
+  flex: 1;
+  padding: 14px 8px;
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--gray);
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.nav-tab i { font-size: 1.1rem; }
+.nav-tab.active { color: var(--primary); border-bottom-color: var(--primary); background: var(--primary-light); }
+.nav-tab:hover { background: #f8f9fa; }
+
+/* CONTAINER */
+.container { max-width: 800px; margin: 0 auto; padding: 16px; }
+
+/* VIEWS */
+.view { display: none; }
+.view.active { display: block; }
+
+/* CARDS */
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+.card-header {
+  padding: 14px 18px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+}
+.card-header i { font-size: 1.1rem; }
+.card-body { padding: 16px 18px; }
+
+/* SEÇÕES DE COR */
+.section-pessoal .card-header { background: var(--primary); }
+.section-fisico .card-header { background: var(--green); }
+.section-escola .card-header { background: var(--yellow); color: #333; }
+.section-endereco .card-header { background: var(--red); }
+.section-contato .card-header { background: var(--purple); }
+.section-saude .card-header { background: #d93025; }
+.section-responsavel .card-header { background: var(--gray); }
+.section-turma .card-header { background: var(--primary); }
+
+/* FORM GROUPS */
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+.form-row.triple { grid-template-columns: 1fr 1fr 1fr; }
+.form-row.single { grid-template-columns: 1fr; }
+.form-group { display: flex; flex-direction: column; }
+.form-group label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--gray);
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 10px 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-family: 'Inter', sans-serif;
+  transition: border-color 0.3s;
+  background: #fafafa;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: white;
+}
+.form-group textarea { resize: vertical; min-height: 60px; }
+.form-group select { cursor: pointer; }
+
+/* BOTÕES */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s;
+  width: 100%;
+}
+.btn-primary { background: var(--primary); color: white; }
+.btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: var(--shadow); }
+.btn-success { background: var(--green); color: white; }
+.btn-success:hover { background: #2d8e47; }
+.btn-danger { background: var(--red); color: white; }
+.btn-danger:hover { background: #c5221f; }
+.btn-secondary { background: var(--gray-light); color: var(--gray); }
+.btn-secondary:hover { background: #e0e0e0; }
+.btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+.btn-group { display: flex; gap: 10px; margin-top: 16px; }
+.btn-group .btn { flex: 1; }
+
+/* LISTA DE ATLETAS */
+.search-box {
+  position: relative;
+  margin-bottom: 16px;
+}
+.search-box input {
+  width: 100%;
+  padding: 12px 12px 12px 42px;
+  border: 2px solid #e0e0e0;
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  font-family: 'Inter', sans-serif;
+  background: white;
+}
+.search-box input:focus { outline: none; border-color: var(--primary); }
+.search-box i {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gray);
+}
+
+.athlete-card {
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 12px;
+  overflow: hidden;
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+.athlete-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.athlete-card-body { padding: 14px 16px; }
+.athlete-name { font-weight: 700; font-size: 1rem; color: #1a1a2e; margin-bottom: 6px; }
+.athlete-info { display: flex; flex-wrap: wrap; gap: 8px; }
+.athlete-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+.tag-sexo-m { background: #dbeafe; color: #1e40af; }
+.tag-sexo-f { background: #fce7f3; color: #be185d; }
+.tag-idade { background: var(--green-light); color: #166534; }
+.tag-turma { background: var(--blue-light); color: var(--primary-dark); }
+.tag-escola { background: var(--yellow-light); color: #92400e; }
+.athlete-strip {
+  height: 4px;
+  background: var(--primary);
+}
+.athlete-strip.alfa { background: #34a853; }
+.athlete-strip.bravo { background: #4285f4; }
+.athlete-strip.charlie { background: #fbbc04; }
+.athlete-strip.echo { background: #ea4335; }
+
+/* DETALHE DO ATLETA */
+.detail-section {
+  margin-bottom: 16px;
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.detail-section-header {
+  padding: 10px 16px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.detail-section-body { padding: 12px 16px; }
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.85rem;
+}
+.detail-row:last-child { border-bottom: none; }
+.detail-label { color: var(--gray); font-weight: 500; flex: 1; }
+.detail-value { font-weight: 600; text-align: right; flex: 1; }
+
+/* STATS */
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+.stat-card {
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px;
+  text-align: center;
+}
+.stat-number { font-size: 2rem; font-weight: 800; color: var(--primary); }
+.stat-label { font-size: 0.75rem; color: var(--gray); font-weight: 600; margin-top: 4px; }
+
+/* TURMA CARDS */
+.turma-card {
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+.turma-header {
+  padding: 12px 16px;
+  color: white;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.turma-body { padding: 12px 16px; }
+.turma-athlete {
+  padding: 6px 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.85rem;
+  display: flex;
+  justify-content: space-between;
+}
+.turma-athlete:last-child { border-bottom: none; }
+
+/* LOADING */
+.loading-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(255,255,255,0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.spinner {
+  width: 50px; height: 50px;
+  border: 4px solid #e0e0e0;
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-text { margin-top: 16px; font-weight: 600; color: var(--gray); }
+
+/* TOAST */
+.toast {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  padding: 14px 24px;
+  border-radius: var(--radius);
+  color: white;
+  font-weight: 600;
+  font-size: 0.85rem;
+  z-index: 2000;
+  transition: transform 0.4s ease;
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+  max-width: 90%;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+.toast.success { background: var(--green); }
+.toast.error { background: var(--red); }
+.toast.info { background: var(--primary); }
+
+/* EMPTY STATE */
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--gray);
+}
+.empty-state i { font-size: 3rem; margin-bottom: 12px; opacity: 0.4; }
+.empty-state p { font-size: 0.9rem; }
+
+/* BADGE COUNTER */
+.badge {
+  background: var(--red);
+  color: white;
+  border-radius: 10px;
+  padding: 1px 7px;
+  font-size: 0.65rem;
+  font-weight: 700;
+}
+
+/* FAB */
+.fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: white;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: var(--shadow-lg);
+  z-index: 50;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.fab:hover { background: var(--primary-dark); transform: scale(1.1); }
+
+/* BACK BTN */
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  margin-bottom: 16px;
+  padding: 8px 0;
+}
+.back-btn:hover { color: var(--primary-dark); }
+
+/* CONFIRM MODAL */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+  padding: 20px;
+}
+.modal-overlay.show { display: flex; }
+.modal-box {
+  background: white;
+  border-radius: var(--radius);
+  padding: 24px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+}
+.modal-box h3 { margin-bottom: 10px; }
+.modal-box p { color: var(--gray); font-size: 0.9rem; margin-bottom: 20px; }
+
+/* FILTER CHIPS */
+.filter-chips {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+}
+.chip {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  border: 2px solid #e0e0e0;
+  background: white;
+  color: var(--gray);
+  transition: all 0.2s;
+}
+.chip.active { border-color: var(--primary); background: var(--primary-light); color: var(--primary); }
+.chip:hover { border-color: var(--primary); }
+
+@media (max-width: 480px) {
+  .form-row { grid-template-columns: 1fr; }
+  .form-row.triple { grid-template-columns: 1fr 1fr; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .header h1 { font-size: 1.2rem; }
+}
+</style>
 </head>
-<body class="bg-surface font-body text-on-surface min-h-screen selection:bg-primary/20 bg-mesh">
+<body>
 
-<!-- SIDEBAR OVERLAY -->
-<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
-
-<!-- SIDEBAR MENU -->
-<div class="sidebar" id="sidebar">
-  <div class="bg-gradient-to-br from-blue-600 to-blue-500 text-white p-6 pb-8">
-    <div class="flex items-center justify-between mb-6">
-      <span class="font-plus-jakarta text-lg font-bold">Menu</span>
-      <span class="material-symbols-outlined cursor-pointer hover:bg-white/20 rounded-full p-1" onclick="toggleSidebar()">close</span>
-    </div>
-    <div class="flex items-center gap-3">
-      <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center overflow-hidden">
-        <img src="logo.png" alt="Logo" class="w-10 h-10 object-contain">
-      </div>
-      <div>
-        <p class="font-plus-jakarta font-bold text-sm leading-tight">MS Pedalando<br>para o Futuro</p>
-        <p class="text-xs text-blue-100">Ribas do Rio Pardo/MS</p>
-      </div>
-    </div>
-  </div>
-  <div class="p-4 flex flex-col gap-1">
-    <button onclick="showPage('home'); toggleSidebar();" class="flex items-center gap-4 w-full p-3 rounded-xl hover:bg-blue-50 text-left transition-colors">
-      <span class="material-symbols-outlined text-blue-600">home</span>
-      <span class="font-medium">Início</span>
-    </button>
-    <button onclick="showPage('cadastro'); toggleSidebar();" class="flex items-center gap-4 w-full p-3 rounded-xl hover:bg-blue-50 text-left transition-colors">
-      <span class="material-symbols-outlined text-green-600">person_add</span>
-      <span class="font-medium">Novo Cadastro</span>
-    </button>
-    <button onclick="showPage('lista'); toggleSidebar();" class="flex items-center gap-4 w-full p-3 rounded-xl hover:bg-blue-50 text-left transition-colors">
-      <span class="material-symbols-outlined text-blue-600">format_list_bulleted</span>
-      <span class="font-medium">Alunos Cadastrados</span>
-    </button>
-    <button onclick="showPage('estatisticas'); toggleSidebar();" class="flex items-center gap-4 w-full p-3 rounded-xl hover:bg-blue-50 text-left transition-colors">
-      <span class="material-symbols-outlined text-gray-600">insights</span>
-      <span class="font-medium">Estatísticas</span>
-    </button>
-    <hr class="my-2 border-gray-200">
-    <a href="https://wa.me/5567981856091?text=Olá! Preciso de ajuda com o Cadastro de Atletas." target="_blank" class="flex items-center gap-4 w-full p-3 rounded-xl hover:bg-green-50 text-left transition-colors">
-      <span class="material-symbols-outlined text-green-600">support_agent</span>
-      <span class="font-medium text-green-700">Ajuda via WhatsApp</span>
-    </a>
-    <button onclick="exportData();" class="flex items-center gap-4 w-full p-3 rounded-xl hover:bg-purple-50 text-left transition-colors">
-      <span class="material-symbols-outlined text-purple-600">download</span>
-      <span class="font-medium">Exportar Dados</span>
-    </button>
-  </div>
-</div>
-
-<!-- HELP MODAL (WhatsApp) -->
-<div class="help-modal" id="helpModal">
-  <div class="bg-white rounded-3xl p-8 mx-6 max-w-sm w-full shadow-2xl">
-    <div class="text-center">
-      <div class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
-        <span class="material-symbols-outlined text-4xl text-green-600" style="font-variation-settings: 'FILL' 1;">support_agent</span>
-      </div>
-      <h3 class="font-plus-jakarta text-xl font-bold mb-2">Precisa de Ajuda?</h3>
-      <p class="text-on-surface-variant text-sm mb-6">Entre em contato com o suporte pelo WhatsApp para tirar dúvidas ou reportar problemas.</p>
-      <a href="https://wa.me/5567981856091?text=Olá! Preciso de ajuda com o Cadastro de Atletas." target="_blank"
-         class="w-full flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-2xl transition-colors mb-3">
-        <svg class="w-5 h-5 fill-white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        Abrir WhatsApp
-      </a>
-      <button onclick="closeHelp()" class="w-full text-gray-500 hover:text-gray-700 font-medium py-2 transition-colors">Fechar</button>
-    </div>
-  </div>
+<!-- LOADING -->
+<div class="loading-overlay" id="loading">
+  <div class="spinner"></div>
+  <div class="loading-text">Carregando dados...</div>
 </div>
 
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<!-- TOP BAR -->
-<header class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl">
-  <div class="flex items-center justify-between px-6 h-16 w-full max-w-md mx-auto">
-    <div class="flex items-center gap-3">
-      <span class="material-symbols-outlined text-blue-600 cursor-pointer hover:bg-blue-50 rounded-full p-1 transition-colors" onclick="toggleSidebar()">menu</span>
-      <h1 class="font-plus-jakarta text-lg font-bold tracking-tight text-blue-600" id="pageTitle">MS Pedalando</h1>
-    </div>
-    <div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center overflow-hidden">
-      <img src="logo.png" alt="Logo" class="w-8 h-8 object-contain">
+<!-- CONFIRM MODAL -->
+<div class="modal-overlay" id="confirmModal">
+  <div class="modal-box">
+    <h3>⚠️ Confirmar exclusão</h3>
+    <p>Tem certeza que deseja excluir este atleta? Esta ação não pode ser desfeita.</p>
+    <div class="btn-group">
+      <button class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
+      <button class="btn btn-danger" id="confirmDeleteBtn">Excluir</button>
     </div>
   </div>
-</header>
+</div>
 
-<!-- ==================== PÁGINAS ==================== -->
+<!-- HEADER -->
+<div class="header">
+  <h1><i class="fas fa-running"></i> Cadastro Alunos/Atletas</h1>
+  <p>Sistema integrado com Google Sheets</p>
+</div>
 
-<!-- PAGE: HOME -->
-<main class="page active pt-24 pb-32 px-6 max-w-md mx-auto" id="page-home">
-  <section class="mb-12 text-center">
-    <div class="inline-flex items-center justify-center w-28 h-28 rounded-3xl bg-white shadow-2xl shadow-primary/20 mb-8 logo-pulse overflow-hidden">
-      <img src="logo.png" alt="MS Pedalando para o Futuro" class="w-24 h-24 object-contain">
+<!-- NAV -->
+<div class="nav-tabs">
+  <div class="nav-tab active" onclick="showView('lista')">
+    <i class="fas fa-users"></i>
+    <span>Atletas <span class="badge" id="totalBadge">0</span></span>
+  </div>
+  <div class="nav-tab" onclick="showView('cadastro')">
+    <i class="fas fa-user-plus"></i>
+    <span>Cadastrar</span>
+  </div>
+  <div class="nav-tab" onclick="showView('turmas')">
+    <i class="fas fa-layer-group"></i>
+    <span>Turmas</span>
+  </div>
+  <div class="nav-tab" onclick="showView('dashboard')">
+    <i class="fas fa-chart-bar"></i>
+    <span>Dashboard</span>
+  </div>
+</div>
+
+<!-- =============== VIEW: LISTA =============== -->
+<div class="view active" id="view-lista">
+  <div class="container">
+    <div class="search-box">
+      <i class="fas fa-search"></i>
+      <input type="text" id="searchInput" placeholder="Buscar atleta por nome..." oninput="filterAthletes()">
     </div>
-    <h2 class="font-plus-jakarta text-3xl font-extrabold tracking-tight text-on-surface leading-tight mb-2">🚴 MS Pedalando<br>para o Futuro</h2>
-    <p class="text-on-surface-variant font-medium text-base leading-relaxed max-w-[300px] mx-auto opacity-80">Cadastro de Alunos/Atletas<br>Ribas do Rio Pardo/MS</p>
-  </section>
-  <div class="grid grid-cols-1 gap-6">
-    <button onclick="showPage('cadastro')" class="group relative overflow-hidden bg-surface-container-lowest rounded-3xl p-8 text-left transition-all duration-300 active:scale-95 shadow-sm hover:shadow-xl hover:shadow-tertiary/10">
-      <div class="absolute top-0 right-0 w-32 h-32 bg-tertiary/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
-      <div class="relative z-10">
-        <div class="w-14 h-14 rounded-2xl bg-tertiary/10 flex items-center justify-center mb-6 group-hover:bg-tertiary group-hover:text-white transition-colors duration-300">
-          <span class="material-symbols-outlined text-3xl text-tertiary group-hover:text-white">person_add</span>
+    <div class="filter-chips" id="filterChips">
+      <div class="chip active" onclick="filterByTurma('todos', this)">Todos</div>
+      <div class="chip" onclick="filterByTurma('ALFA', this)">🟢 ALFA</div>
+      <div class="chip" onclick="filterByTurma('BRAVO', this)">🔵 BRAVO</div>
+      <div class="chip" onclick="filterByTurma('CHARLIE', this)">🟡 CHARLIE</div>
+      <div class="chip" onclick="filterByTurma('ECHO', this)">🔴 ECHO</div>
+    </div>
+    <div id="athleteList"></div>
+  </div>
+  <button class="fab" onclick="showView('cadastro')" title="Novo cadastro">
+    <i class="fas fa-plus"></i>
+  </button>
+</div>
+
+<!-- =============== VIEW: CADASTRO =============== -->
+<div class="view" id="view-cadastro">
+  <div class="container">
+    <div class="back-btn" onclick="cancelForm()">
+      <i class="fas fa-arrow-left"></i> Voltar
+    </div>
+    <h2 style="font-size:1.1rem;margin-bottom:16px;" id="formTitle">
+      <i class="fas fa-user-plus"></i> Novo Cadastro
+    </h2>
+    <form id="athleteForm" onsubmit="saveAthlete(event)">
+      <input type="hidden" id="editRow" value="">
+
+      <!-- DADOS PESSOAIS -->
+      <div class="card section-pessoal">
+        <div class="card-header"><i class="fas fa-user"></i> Dados Pessoais</div>
+        <div class="card-body">
+          <div class="form-row single">
+            <div class="form-group">
+              <label>Nome do Aluno/Atleta *</label>
+              <input type="text" id="f_nome" required placeholder="Nome completo">
+            </div>
+          </div>
+          <div class="form-row triple">
+            <div class="form-group">
+              <label>Sexo *</label>
+              <select id="f_sexo" required>
+                <option value="">Selecione</option>
+                <option>Masculino</option>
+                <option>Feminino</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Data de Nascimento</label>
+              <input type="date" id="f_nascimento">
+            </div>
+            <div class="form-group">
+              <label>Idade *</label>
+              <select id="f_idade" required>
+                <option value="">Sel.</option>
+                <option>7</option><option>8</option><option>9</option>
+                <option>10</option><option>11</option><option>12</option>
+                <option>13</option><option>14</option><option>15</option>
+                <option>16</option><option>17</option>
+              </select>
+            </div>
+          </div>
         </div>
-        <h3 class="font-plus-jakarta text-2xl font-bold text-on-surface mb-1">➕ Novo Cadastro</h3>
-        <p class="text-on-surface-variant text-sm">Registre um novo aluno no projeto</p>
       </div>
-      <div class="absolute bottom-6 right-8 opacity-0 group-hover:opacity-100 transition-opacity">
-        <span class="material-symbols-outlined text-tertiary">arrow_forward_ios</span>
-      </div>
-    </button>
-    <div class="grid grid-cols-2 gap-4">
-      <button onclick="showPage('lista')" class="group bg-surface-container-lowest rounded-3xl p-6 text-left transition-all duration-300 active:scale-95 shadow-sm border-b-4 border-primary/20 hover:border-primary">
-        <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary transition-colors">
-          <span class="material-symbols-outlined text-2xl text-primary group-hover:text-white">format_list_bulleted</span>
+
+      <!-- AVALIAÇÃO FÍSICA -->
+      <div class="card section-fisico">
+        <div class="card-header"><i class="fas fa-heartbeat"></i> Avaliação Física</div>
+        <div class="card-body">
+          <div class="form-row triple">
+            <div class="form-group">
+              <label>Estatura (cm)</label>
+              <input type="number" id="f_estatura" min="50" max="250" step="0.1" placeholder="Ex: 165">
+            </div>
+            <div class="form-group">
+              <label>Peso (kg)</label>
+              <input type="number" id="f_peso" min="10" max="200" step="0.1" placeholder="Ex: 55">
+            </div>
+            <div class="form-group">
+              <label>Envergadura (cm)</label>
+              <input type="number" id="f_envergadura" min="50" max="280" step="0.1" placeholder="Ex: 170">
+            </div>
+          </div>
+          <div class="form-row triple">
+            <div class="form-group">
+              <label>Flexibilidade (cm)</label>
+              <input type="number" id="f_flexibilidade" min="-30" max="60" step="0.1" placeholder="Ex: 25">
+            </div>
+            <div class="form-group">
+              <label>Abdominal (rep)</label>
+              <input type="number" id="f_abdominal" min="0" max="200" placeholder="Ex: 30">
+            </div>
+            <div class="form-group">
+              <label>Salto Horizontal (cm)</label>
+              <input type="number" id="f_saltoH" min="0" max="400" step="0.1" placeholder="Ex: 180">
+            </div>
+          </div>
+          <div class="form-row triple">
+            <div class="form-group">
+              <label>Salto Vertical (cm)</label>
+              <input type="number" id="f_saltoV" min="0" max="150" step="0.1" placeholder="Ex: 35">
+            </div>
+            <div class="form-group">
+              <label>Medicine Ball (cm)</label>
+              <input type="number" id="f_medicineBall" min="0" max="2000" step="1" placeholder="Ex: 450">
+            </div>
+            <div class="form-group">
+              <label>Teste Quadrado (s)</label>
+              <input type="number" id="f_quadrado" min="0" max="30" step="0.01" placeholder="Ex: 6.5">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Corrida 20m (s)</label>
+              <input type="number" id="f_corrida20m" min="0" max="15" step="0.01" placeholder="Ex: 3.8">
+            </div>
+            <div class="form-group"></div>
+          </div>
         </div>
-        <h3 class="font-plus-jakarta text-lg font-bold text-on-surface leading-snug">📋 Alunos Cadastrados</h3>
-      </button>
-      <button onclick="showPage('estatisticas')" class="group bg-surface-container-lowest rounded-3xl p-6 text-left transition-all duration-300 active:scale-95 shadow-sm border-b-4 border-surface-container-highest hover:border-on-surface-variant">
-        <div class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center mb-4 group-hover:bg-on-surface-variant transition-colors">
-          <span class="material-symbols-outlined text-2xl text-on-surface-variant group-hover:text-white">insights</span>
+      </div>
+
+      <!-- ESCOLA -->
+      <div class="card section-escola">
+        <div class="card-header"><i class="fas fa-school"></i> Escola</div>
+        <div class="card-body">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nome da Escola</label>
+              <input type="text" id="f_escola" placeholder="Ex: E.E. Exemplo">
+            </div>
+            <div class="form-group">
+              <label>Série</label>
+              <select id="f_serie">
+                <option value="">Selecione</option>
+                <option>1º ano</option><option>2º ano</option><option>3º ano</option>
+                <option>4º ano</option><option>5º ano</option><option>6º ano</option>
+                <option>7º ano</option><option>8º ano</option><option>9º ano</option>
+                <option>1º EM</option><option>2º EM</option><option>3º EM</option>
+              </select>
+            </div>
+          </div>
         </div>
-        <h3 class="font-plus-jakarta text-lg font-bold text-on-surface leading-snug">📊 Estatísticas</h3>
-      </button>
-    </div>
-    <div class="mt-4 p-6 rounded-3xl bg-surface-container-low flex items-center gap-4">
-      <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center overflow-hidden shadow-sm">
-        <img src="logo.png" alt="Logo" class="w-7 h-7 object-contain">
       </div>
-      <p class="text-xs text-on-surface-variant font-medium uppercase tracking-wider" id="homeCounter">Total de 0 atletas cadastrados</p>
-    </div>
-  </div>
-</main>
 
-<!-- PAGE: CADASTRO -->
-<main class="page pt-24 pb-32 px-6 max-w-md mx-auto" id="page-cadastro">
-  <section class="mb-6">
-    <button onclick="showPage('home')" class="flex items-center gap-1 text-blue-600 mb-4 hover:underline">
-      <span class="material-symbols-outlined text-sm">arrow_back</span> Voltar
-    </button>
-    <h2 class="font-plus-jakarta text-2xl font-extrabold tracking-tight mb-1">➕ Novo Cadastro</h2>
-    <p class="text-on-surface-variant text-sm">Preencha os dados do aluno/atleta</p>
-  </section>
-  <form id="formCadastro" class="space-y-4" onsubmit="salvarCadastro(event)">
-    <div>
-      <label class="block text-sm font-semibold mb-1">Nome Completo *</label>
-      <input type="text" id="nome" required placeholder="Ex: João Silva" class="w-full px-4 py-3 rounded-2xl border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 bg-white transition-all">
-    </div>
-    <div class="grid grid-cols-2 gap-3">
-      <div>
-        <label class="block text-sm font-semibold mb-1">Data de Nascimento *</label>
-        <input type="date" id="nascimento" required class="w-full px-4 py-3 rounded-2xl border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 bg-white transition-all">
+      <!-- ENDEREÇO -->
+      <div class="card section-endereco">
+        <div class="card-header"><i class="fas fa-map-marker-alt"></i> Endereço</div>
+        <div class="card-body">
+          <div class="form-row single">
+            <div class="form-group">
+              <label>Rua</label>
+              <input type="text" id="f_rua" placeholder="Nome da rua">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Número</label>
+              <input type="text" id="f_numero" placeholder="Nº">
+            </div>
+            <div class="form-group">
+              <label>Bairro</label>
+              <input type="text" id="f_bairro" placeholder="Bairro">
+            </div>
+          </div>
+        </div>
       </div>
-      <div>
-        <label class="block text-sm font-semibold mb-1">Sexo *</label>
-        <select id="sexo" required class="w-full px-4 py-3 rounded-2xl border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 bg-white transition-all">
-          <option value="">Selecione</option>
-          <option value="Masculino">Masculino</option>
-          <option value="Feminino">Feminino</option>
-        </select>
+
+      <!-- CONTATO & UNIFORME -->
+      <div class="card section-contato">
+        <div class="card-header"><i class="fas fa-phone-alt"></i> Contato & Uniforme</div>
+        <div class="card-body">
+          <div class="form-row">
+            <div class="form-group">
+              <label>WhatsApp do Aluno</label>
+              <input type="tel" id="f_whatsappAluno" placeholder="(67) 99999-9999">
+            </div>
+            <div class="form-group">
+              <label>Tamanho do Uniforme</label>
+              <select id="f_uniforme">
+                <option value="">Selecione</option>
+                <option>PP</option><option>P</option><option>M</option>
+                <option>G</option><option>GG</option><option>XG</option>
+              </select>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div>
-      <label class="block text-sm font-semibold mb-1">CPF</label>
-      <input type="text" id="cpf" placeholder="000.000.000-00" maxlength="14" oninput="mascaraCPF(this)" class="w-full px-4 py-3 rounded-2xl border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 bg-white transition-all">
-    </div>
-    <div>
-      <label class="block text-sm font-semibold mb-1">Telefone / WhatsApp</label>
-      <input type="tel" id="telefone" placeholder="(67) 99999-9999" maxlength="15" oninput="mascaraTelefone(this)" class="w-full px-4 py-3 rounded-2xl border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 bg-white transition-all">
-    </div>
-    <div>
-      <label class="block text-sm font-semibold mb-1">Endereço</label>
-      <input type="text" id="endereco" placeholder="Rua, número, bairro" class="w-full px-4 py-3 rounded-2xl border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 bg-white transition-all">
-    </div>
-    <div>
-      <label class="block text-sm font-semibold mb-1">Modalidade *</label>
-      <select id="modalidade" required class="w-full px-4 py-3 rounded-2xl border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 bg-white transition-all">
-        <option value="">Selecione</option>
-        <option value="Ciclismo">🚴 Ciclismo</option>
-        <option value="Futebol">⚽ Futebol</option>
-        <option value="Futsal">⚽ Futsal</option>
-        <option value="Vôlei">🏐 Vôlei</option>
-        <option value="Basquete">🏀 Basquete</option>
-        <option value="Handebol">🤾 Handebol</option>
-        <option value="Atletismo">🏃 Atletismo</option>
-        <option value="Natação">🏊 Natação</option>
-        <option value="Judô">🥋 Judô</option>
-        <option value="Karatê">🥋 Karatê</option>
-        <option value="Capoeira">🤸 Capoeira</option>
-        <option value="Outro">Outro</option>
-      </select>
-    </div>
-    <div>
-      <label class="block text-sm font-semibold mb-1">Nome do Responsável</label>
-      <input type="text" id="responsavel" placeholder="(para menores de 18 anos)" class="w-full px-4 py-3 rounded-2xl border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 bg-white transition-all">
-    </div>
-    <div>
-      <label class="block text-sm font-semibold mb-1">Observações</label>
-      <textarea id="observacoes" rows="3" placeholder="Alguma informação adicional..." class="w-full px-4 py-3 rounded-2xl border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 bg-white transition-all resize-none"></textarea>
-    </div>
-    <button type="submit" class="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-4 rounded-2xl shadow-lg shadow-green-500/30 transition-all active:scale-95 flex items-center justify-center gap-2 mt-6">
-      <span class="material-symbols-outlined">save</span>
-      Salvar Cadastro
-    </button>
-  </form>
-</main>
 
-<!-- PAGE: LISTA -->
-<main class="page pt-24 pb-32 px-6 max-w-md mx-auto" id="page-lista">
-  <section class="mb-6">
-    <button onclick="showPage('home')" class="flex items-center gap-1 text-blue-600 mb-4 hover:underline">
-      <span class="material-symbols-outlined text-sm">arrow_back</span> Voltar
-    </button>
-    <h2 class="font-plus-jakarta text-2xl font-extrabold tracking-tight mb-1">📋 Alunos Cadastrados</h2>
-    <p class="text-on-surface-variant text-sm" id="listaSubtitle">0 atletas encontrados</p>
-  </section>
-  <div class="mb-4">
-    <input type="text" id="busca" oninput="filtrarLista()" placeholder="🔍 Buscar por nome ou modalidade..." class="w-full px-4 py-3 rounded-2xl border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 bg-white transition-all">
+      <!-- SAÚDE -->
+      <div class="card section-saude">
+        <div class="card-header"><i class="fas fa-notes-medical"></i> Saúde</div>
+        <div class="card-body">
+          <div class="form-row single">
+            <div class="form-group">
+              <label>Condição de Saúde / Limitação</label>
+              <textarea id="f_saude" placeholder="Descreva se houver alguma condição..."></textarea>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Usa medicamento contínuo?</label>
+              <select id="f_medicamento" onchange="toggleMedicamento()">
+                <option value="">Selecione</option>
+                <option>Sim</option><option>Não</option>
+              </select>
+            </div>
+            <div class="form-group" id="grpQualMed" style="display:none;">
+              <label>Qual medicamento?</label>
+              <input type="text" id="f_qualMedicamento" placeholder="Nome do medicamento">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Possui plano de saúde?</label>
+              <select id="f_planoSaude" onchange="togglePlano()">
+                <option value="">Selecione</option>
+                <option>Sim</option><option>Não</option>
+              </select>
+            </div>
+            <div class="form-group" id="grpQualPlano" style="display:none;">
+              <label>Qual plano?</label>
+              <input type="text" id="f_qualPlano" placeholder="Nome do plano">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RESPONSÁVEL -->
+      <div class="card section-responsavel">
+        <div class="card-header"><i class="fas fa-user-shield"></i> Responsável</div>
+        <div class="card-body">
+          <div class="form-row single">
+            <div class="form-group">
+              <label>Nome do Responsável</label>
+              <input type="text" id="f_responsavel" placeholder="Nome completo">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Parentesco</label>
+              <select id="f_parentesco">
+                <option value="">Selecione</option>
+                <option>Pai</option><option>Mãe</option><option>Avô</option>
+                <option>Avó</option><option>Tio</option><option>Tia</option>
+                <option>Irmão</option><option>Irmã</option><option>Padrasto</option>
+                <option>Madrasta</option><option>Outro</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>WhatsApp do Responsável</label>
+              <input type="tel" id="f_whatsappResponsavel" placeholder="(67) 99999-9999">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TURMA -->
+      <div class="card section-turma">
+        <div class="card-header"><i class="fas fa-users-cog"></i> Turma de Treinamento</div>
+        <div class="card-body">
+          <div class="form-row single">
+            <div class="form-group">
+              <label>Turma *</label>
+              <select id="f_turma" required>
+                <option value="">Selecione a turma</option>
+                <option>ALFA — 7 a 10 anos — Seg/Qua/Sex — 15:00 às 16:40</option>
+                <option>BRAVO — 11 a 14 anos — Ter/Qui/Sáb — 17:00 às 18:40</option>
+                <option>CHARLIE — 11 a 14 anos — Ter/Qui/Sáb — 18:40 às 20:20</option>
+                <option>ECHO — 15 a 17 anos — Qua/Sex/Sáb — 17:40 às 19:20</option>
+                <option>BRAVO/CHARLIE/ECHO — 11 a 17 anos — Sáb — 07:00 às 12:00</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTÕES -->
+      <div class="btn-group" style="margin-bottom:80px;">
+        <button type="button" class="btn btn-secondary" onclick="cancelForm()">
+          <i class="fas fa-times"></i> Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary" id="btnSave">
+          <i class="fas fa-save"></i> Salvar
+        </button>
+      </div>
+    </form>
   </div>
-  <div id="listaAlunos" class="space-y-3"></div>
-</main>
+</div>
 
-<!-- PAGE: ESTATÍSTICAS -->
-<main class="page pt-24 pb-32 px-6 max-w-md mx-auto" id="page-estatisticas">
-  <section class="mb-6">
-    <button onclick="showPage('home')" class="flex items-center gap-1 text-blue-600 mb-4 hover:underline">
-      <span class="material-symbols-outlined text-sm">arrow_back</span> Voltar
-    </button>
-    <h2 class="font-plus-jakarta text-2xl font-extrabold tracking-tight mb-1">📊 Estatísticas</h2>
-    <p class="text-on-surface-variant text-sm">Resumo do projeto esportivo</p>
-  </section>
-  <div class="grid grid-cols-2 gap-4 mb-6">
-    <div class="bg-white rounded-2xl p-5 shadow-sm text-center">
-      <p class="text-3xl font-extrabold text-blue-600 font-plus-jakarta" id="statTotal">0</p>
-      <p class="text-xs text-on-surface-variant font-semibold mt-1">Total de Atletas</p>
-    </div>
-    <div class="bg-white rounded-2xl p-5 shadow-sm text-center">
-      <p class="text-3xl font-extrabold text-green-600 font-plus-jakarta" id="statModalidades">0</p>
-      <p class="text-xs text-on-surface-variant font-semibold mt-1">Modalidades</p>
-    </div>
-    <div class="bg-white rounded-2xl p-5 shadow-sm text-center">
-      <p class="text-3xl font-extrabold text-purple-600 font-plus-jakarta" id="statMasc">0</p>
-      <p class="text-xs text-on-surface-variant font-semibold mt-1">Masculino</p>
-    </div>
-    <div class="bg-white rounded-2xl p-5 shadow-sm text-center">
-      <p class="text-3xl font-extrabold text-pink-500 font-plus-jakarta" id="statFem">0</p>
-      <p class="text-xs text-on-surface-variant font-semibold mt-1">Feminino</p>
-    </div>
-  </div>
-  <div class="bg-white rounded-2xl p-5 shadow-sm mb-4">
-    <h3 class="font-plus-jakarta font-bold mb-3">Por Modalidade</h3>
-    <div id="statPorModalidade" class="space-y-2"></div>
-    <p id="statVazio" class="text-sm text-gray-400 text-center py-4">Nenhum dado ainda</p>
-  </div>
-</main>
+<!-- =============== VIEW: DETALHE =============== -->
+<div class="view" id="view-detalhe">
+  <div class="container" id="detailContent"></div>
+</div>
 
-<!-- PAGE: DETALHE DO ALUNO -->
-<main class="page pt-24 pb-32 px-6 max-w-md mx-auto" id="page-detalhe">
-  <section class="mb-6">
-    <button onclick="showPage('lista')" class="flex items-center gap-1 text-blue-600 mb-4 hover:underline">
-      <span class="material-symbols-outlined text-sm">arrow_back</span> Voltar à lista
-    </button>
-  </section>
-  <div id="detalheConteudo"></div>
-</main>
+<!-- =============== VIEW: TURMAS =============== -->
+<div class="view" id="view-turmas">
+  <div class="container" id="turmasContent"></div>
+</div>
 
-<!-- FAB: WhatsApp Help -->
-<a href="https://wa.me/5567981856091?text=Olá! Preciso de ajuda com o Cadastro de Atletas." target="_blank"
-   class="fixed bottom-24 left-6 w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 text-white rounded-xl shadow-[0_8px_24px_rgba(25,28,35,0.2)] flex items-center justify-center z-40 active:scale-90 transition-transform hover:shadow-xl">
-  <svg class="w-7 h-7 fill-white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-</a>
-
-<!-- BOTTOM NAV -->
-<nav class="fixed bottom-0 w-full rounded-t-3xl pb-safe z-50 bg-white/80 backdrop-blur-2xl shadow-[0_-8px_24px_rgba(25,28,35,0.06)]">
-  <div class="flex justify-around items-center px-4 py-3 w-full max-w-md mx-auto">
-    <button onclick="showPage('home')" id="nav-home" class="nav-btn flex flex-col items-center justify-center px-5 py-2 rounded-2xl transition-all">
-      <span class="material-symbols-outlined">home</span>
-      <span class="font-plus-jakarta text-[10px] font-bold uppercase tracking-widest mt-0.5">Home</span>
-    </button>
-    <button onclick="showPage('lista')" id="nav-lista" class="nav-btn flex flex-col items-center justify-center px-4 py-2 rounded-2xl transition-all">
-      <span class="material-symbols-outlined">format_list_bulleted</span>
-      <span class="font-plus-jakarta text-[10px] font-bold uppercase tracking-widest mt-0.5">Atletas</span>
-    </button>
-    <button onclick="showPage('estatisticas')" id="nav-estatisticas" class="nav-btn flex flex-col items-center justify-center px-4 py-2 rounded-2xl transition-all">
-      <span class="material-symbols-outlined">insights</span>
-      <span class="font-plus-jakarta text-[10px] font-bold uppercase tracking-widest mt-0.5">Status</span>
-    </button>
-  </div>
-</nav>
+<!-- =============== VIEW: DASHBOARD =============== -->
+<div class="view" id="view-dashboard">
+  <div class="container" id="dashboardContent"></div>
+</div>
 
 <script>
-// ==================== DATABASE (localStorage) ====================
-function getAlunos() {
-  return JSON.parse(localStorage.getItem('atletas_ribas') || '[]');
-}
-function saveAlunos(alunos) {
-  localStorage.setItem('atletas_ribas', JSON.stringify(alunos));
-}
+// ================================================================
+//  CONFIG
+// ================================================================
+const API_URL = 'https://script.google.com/macros/s/AKfycbw76l9nJaI8B532tF3pLyDIHrVbKBQ4jRrwK-gXxsAVq7tcAmsHabT_a1tQTLoYrI4UfQ/exec';
 
-// ==================== NAVIGATION ====================
-function showPage(page) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  const el = document.getElementById('page-' + page);
-  if (el) el.classList.add('active');
+let allAthletes = [];
+let currentFilter = 'todos';
 
-  document.querySelectorAll('.nav-btn').forEach(btn => {
-    btn.className = 'nav-btn flex flex-col items-center justify-center px-4 py-2 rounded-2xl transition-all text-slate-400';
-    btn.querySelector('.material-symbols-outlined').style.fontVariationSettings = "'FILL' 0";
-  });
-  const activeNav = document.getElementById('nav-' + page);
-  if (activeNav) {
-    activeNav.className = 'nav-btn flex flex-col items-center justify-center bg-gradient-to-br from-blue-600 to-blue-500 text-white rounded-2xl px-5 py-2 scale-110 shadow-lg shadow-blue-500/30 transition-all';
-    activeNav.querySelector('.material-symbols-outlined').style.fontVariationSettings = "'FILL' 1";
+// ================================================================
+//  INIT
+// ================================================================
+document.addEventListener('DOMContentLoaded', () => {
+  loadAthletes();
+});
+
+// ================================================================
+//  API CALLS
+// ================================================================
+async function loadAthletes() {
+  showLoading(true);
+  try {
+    const resp = await fetch(API_URL);
+    allAthletes = await resp.json();
+    if (allAthletes.error) throw new Error(allAthletes.error);
+    document.getElementById('totalBadge').textContent = allAthletes.length;
+    renderAthleteList();
+  } catch (err) {
+    showToast('Erro ao carregar dados: ' + err.message, 'error');
+    console.error(err);
   }
-
-  const titles = { home: 'MS Pedalando', cadastro: 'Novo Cadastro', lista: 'Alunos Cadastrados', estatisticas: 'Estatísticas', detalhe: 'Detalhes do Aluno' };
-  document.getElementById('pageTitle').textContent = titles[page] || 'MS Pedalando';
-
-  if (page === 'home') updateHome();
-  if (page === 'lista') renderLista();
-  if (page === 'estatisticas') renderEstatisticas();
-
-  window.scrollTo(0, 0);
+  showLoading(false);
 }
 
-// ==================== SIDEBAR ====================
-function toggleSidebar() {
-  document.getElementById('sidebar').classList.toggle('open');
-  document.getElementById('sidebarOverlay').classList.toggle('open');
+async function postData(payload) {
+  showLoading(true);
+  try {
+    const resp = await fetch(API_URL, {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    });
+    const result = await resp.json();
+    if (result.result === 'error') throw new Error(result.message);
+    return result;
+  } catch (err) {
+    showToast('Erro: ' + err.message, 'error');
+    throw err;
+  } finally {
+    showLoading(false);
+  }
 }
 
-// ==================== HELP MODAL ====================
-function openHelp() {
-  document.getElementById('helpModal').classList.add('open');
-}
-function closeHelp() {
-  document.getElementById('helpModal').classList.remove('open');
-}
-
-// ==================== TOAST ====================
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3000);
-}
-
-// ==================== MASKS ====================
-function mascaraCPF(input) {
-  let v = input.value.replace(/\D/g, '');
-  v = v.replace(/(\d{3})(\d)/, '$1.$2');
-  v = v.replace(/(\d{3})(\d)/, '$1.$2');
-  v = v.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
-  input.value = v;
-}
-function mascaraTelefone(input) {
-  let v = input.value.replace(/\D/g, '');
-  v = v.replace(/^(\d{2})(\d)/, '($1) $2');
-  v = v.replace(/(\d{5})(\d)/, '$1-$2');
-  input.value = v;
-}
-
-// ==================== CADASTRO ====================
-function salvarCadastro(e) {
-  e.preventDefault();
-  const aluno = {
-    id: Date.now(),
-    nome: document.getElementById('nome').value.trim(),
-    nascimento: document.getElementById('nascimento').value,
-    sexo: document.getElementById('sexo').value,
-    cpf: document.getElementById('cpf').value.trim(),
-    telefone: document.getElementById('telefone').value.trim(),
-    endereco: document.getElementById('endereco').value.trim(),
-    modalidade: document.getElementById('modalidade').value,
-    responsavel: document.getElementById('responsavel').value.trim(),
-    observacoes: document.getElementById('observacoes').value.trim(),
-    dataCadastro: new Date().toLocaleDateString('pt-BR')
-  };
-  const alunos = getAlunos();
-  alunos.push(aluno);
-  saveAlunos(alunos);
-  document.getElementById('formCadastro').reset();
-  showToast('✅ Atleta cadastrado com sucesso!');
-  setTimeout(() => showPage('lista'), 1000);
-}
-
-// ==================== LISTA ====================
-function renderLista(filtro = '') {
-  const alunos = getAlunos();
-  const container = document.getElementById('listaAlunos');
-  const subtitle = document.getElementById('listaSubtitle');
+// ================================================================
+//  VIEWS
+// ================================================================
+function showView(view) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   
-  let filtered = alunos;
-  if (filtro) {
-    const f = filtro.toLowerCase();
-    filtered = alunos.filter(a => a.nome.toLowerCase().includes(f) || a.modalidade.toLowerCase().includes(f));
+  const viewEl = document.getElementById('view-' + view);
+  if (viewEl) viewEl.classList.add('active');
+  
+  const tabs = document.querySelectorAll('.nav-tab');
+  const tabMap = { lista: 0, cadastro: 1, turmas: 2, dashboard: 3 };
+  if (tabMap[view] !== undefined && tabs[tabMap[view]]) {
+    tabs[tabMap[view]].classList.add('active');
   }
 
-  subtitle.textContent = filtered.length + ' atleta(s) encontrado(s)';
+  if (view === 'turmas') renderTurmas();
+  if (view === 'dashboard') renderDashboard();
+  if (view === 'lista') renderAthleteList();
+  if (view === 'cadastro') window.scrollTo(0, 0);
+}
+
+// ================================================================
+//  RENDER LISTA
+// ================================================================
+function renderAthleteList() {
+  const container = document.getElementById('athleteList');
+  const search = document.getElementById('searchInput').value.toLowerCase();
+  
+  let filtered = allAthletes.filter(a => {
+    const nome = (a['Nome do Aluno/Atleta'] || '').toLowerCase();
+    const matchSearch = nome.includes(search);
+    const turma = a['Turma de Treinamento'] || '';
+    const matchTurma = currentFilter === 'todos' || turma.toUpperCase().startsWith(currentFilter);
+    return matchSearch && matchTurma;
+  });
 
   if (filtered.length === 0) {
     container.innerHTML = `
-      <div class="text-center py-12">
-        <span class="material-symbols-outlined text-6xl text-gray-300 mb-4">person_off</span>
-        <p class="text-gray-400 font-medium">${filtro ? 'Nenhum resultado encontrado' : 'Nenhum atleta cadastrado ainda'}</p>
-        ${!filtro ? '<button onclick="showPage(\'cadastro\')" class="mt-4 text-blue-600 font-bold hover:underline">+ Cadastrar primeiro atleta</button>' : ''}
+      <div class="empty-state">
+        <i class="fas fa-search"></i>
+        <p>Nenhum atleta encontrado</p>
       </div>`;
     return;
   }
 
-  container.innerHTML = filtered.map(a => `
-    <div class="bg-white rounded-2xl p-4 shadow-sm flex items-center gap-4 cursor-pointer hover:shadow-md transition-shadow active:scale-[0.98]" onclick="verDetalhe(${a.id})">
-      <div class="w-12 h-12 rounded-xl ${a.sexo === 'Masculino' ? 'bg-blue-100 text-blue-600' : 'bg-pink-100 text-pink-500'} flex items-center justify-center flex-shrink-0">
-        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">${a.sexo === 'Masculino' ? 'male' : 'female'}</span>
-      </div>
-      <div class="flex-1 min-w-0">
-        <p class="font-plus-jakarta font-bold text-on-surface truncate">${a.nome}</p>
-        <p class="text-xs text-on-surface-variant">${a.modalidade} • ${a.dataCadastro}</p>
-      </div>
-      <span class="material-symbols-outlined text-gray-300">chevron_right</span>
-    </div>
-  `).join('');
+  container.innerHTML = filtered.map((a, i) => {
+    const nome = a['Nome do Aluno/Atleta'] || 'Sem nome';
+    const sexo = a['Sexo'] || '';
+    const idade = a['Idade'] || '';
+    const turma = a['Turma de Treinamento'] || '';
+    const escola = a['Nome da Escola'] || '';
+    const turmaCode = getTurmaCode(turma);
+
+    return `
+      <div class="athlete-card" onclick="showDetail(${allAthletes.indexOf(a)})">
+        <div class="athlete-strip ${turmaCode.toLowerCase()}"></div>
+        <div class="athlete-card-body">
+          <div class="athlete-name">${nome}</div>
+          <div class="athlete-info">
+            ${sexo ? `<span class="athlete-tag ${sexo === 'Masculino' ? 'tag-sexo-m' : 'tag-sexo-f'}">
+              <i class="fas fa-${sexo === 'Masculino' ? 'mars' : 'venus'}"></i> ${sexo}
+            </span>` : ''}
+            ${idade ? `<span class="athlete-tag tag-idade"><i class="fas fa-birthday-cake"></i> ${idade} anos</span>` : ''}
+            ${turmaCode ? `<span class="athlete-tag tag-turma"><i class="fas fa-layer-group"></i> ${turmaCode}</span>` : ''}
+            ${escola ? `<span class="athlete-tag tag-escola"><i class="fas fa-school"></i> ${escola}</span>` : ''}
+          </div>
+        </div>
+      </div>`;
+  }).join('');
 }
 
-function filtrarLista() {
-  renderLista(document.getElementById('busca').value);
+function getTurmaCode(turma) {
+  if (!turma) return '';
+  if (turma.startsWith('ALFA')) return 'ALFA';
+  if (turma.startsWith('BRAVO/')) return 'MISTO';
+  if (turma.startsWith('BRAVO')) return 'BRAVO';
+  if (turma.startsWith('CHARLIE')) return 'CHARLIE';
+  if (turma.startsWith('ECHO')) return 'ECHO';
+  return '';
 }
 
-// ==================== DETALHE ====================
-function verDetalhe(id) {
-  const alunos = getAlunos();
-  const a = alunos.find(x => x.id === id);
+function filterAthletes() {
+  renderAthleteList();
+}
+
+function filterByTurma(turma, el) {
+  currentFilter = turma;
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  renderAthleteList();
+}
+
+// ================================================================
+//  DETALHE
+// ================================================================
+function showDetail(index) {
+  const a = allAthletes[index];
   if (!a) return;
 
-  function calcIdade(nasc) {
-    const hoje = new Date();
-    const n = new Date(nasc);
-    let idade = hoje.getFullYear() - n.getFullYear();
-    const m = hoje.getMonth() - n.getMonth();
-    if (m < 0 || (m === 0 && hoje.getDate() < n.getDate())) idade--;
-    return idade;
-  }
+  const sections = [
+    {
+      title: 'Dados Pessoais', icon: 'fa-user', bg: 'var(--primary)',
+      fields: [
+        ['Nome', a['Nome do Aluno/Atleta']],
+        ['Sexo', a['Sexo']],
+        ['Nascimento', a['Data de Nascimento']],
+        ['Idade', a['Idade'] ? a['Idade'] + ' anos' : ''],
+      ]
+    },
+    {
+      title: 'Avaliação Física', icon: 'fa-heartbeat', bg: 'var(--green)',
+      fields: [
+        ['Estatura', fmtUnit(a['Estatura (cm)'], 'cm')],
+        ['Peso', fmtUnit(a['Peso (kg)'], 'kg')],
+        ['Envergadura', fmtUnit(a['Envergadura (cm)'], 'cm')],
+        ['Flexibilidade', fmtUnit(a['Flexibilidade (cm)'], 'cm')],
+        ['Abdominal', fmtUnit(a['Abdominal (rep)'], 'rep')],
+        ['Salto Horizontal', fmtUnit(a['Salto Horizontal (cm)'], 'cm')],
+        ['Salto Vertical', fmtUnit(a['Salto Vertical (cm)'], 'cm')],
+        ['Medicine Ball', fmtUnit(a['Medicine Ball (cm)'], 'cm')],
+        ['Teste Quadrado', fmtUnit(a['Teste do Quadrado (s)'], 's')],
+        ['Corrida 20m', fmtUnit(a['Corrida 20m (s)'], 's')],
+      ]
+    },
+    {
+      title: 'Escola', icon: 'fa-school', bg: 'var(--yellow)',
+      fields: [
+        ['Escola', a['Nome da Escola']],
+        ['Série', a['Série']],
+      ]
+    },
+    {
+      title: 'Endereço', icon: 'fa-map-marker-alt', bg: 'var(--red)',
+      fields: [
+        ['Rua', a['Rua']],
+        ['Número', a['Número']],
+        ['Bairro', a['Bairro']],
+      ]
+    },
+    {
+      title: 'Contato & Uniforme', icon: 'fa-phone-alt', bg: 'var(--purple)',
+      fields: [
+        ['WhatsApp Aluno', a['WhatsApp do Aluno']],
+        ['Uniforme', a['Tamanho do Uniforme']],
+      ]
+    },
+    {
+      title: 'Saúde', icon: 'fa-notes-medical', bg: '#d93025',
+      fields: [
+        ['Condição', a['Condição de Saúde / Limitação']],
+        ['Medicamento?', a['Usa medicamento contínuo?']],
+        ['Qual medicamento', a['Qual medicamento?']],
+        ['Plano de saúde?', a['Possui plano de saúde?']],
+        ['Qual plano', a['Qual plano?']],
+      ]
+    },
+    {
+      title: 'Responsável', icon: 'fa-user-shield', bg: 'var(--gray)',
+      fields: [
+        ['Nome', a['Nome do Responsável']],
+        ['Parentesco', a['Parentesco']],
+        ['WhatsApp', a['WhatsApp do Responsável']],
+      ]
+    },
+    {
+      title: 'Turma', icon: 'fa-users-cog', bg: 'var(--primary)',
+      fields: [
+        ['Turma', a['Turma de Treinamento']],
+      ]
+    },
+  ];
 
-  const idade = calcIdade(a.nascimento);
-  const nascFormatado = new Date(a.nascimento + 'T00:00:00').toLocaleDateString('pt-BR');
-
-  document.getElementById('detalheConteudo').innerHTML = `
-    <div class="bg-white rounded-3xl p-6 shadow-sm mb-4">
-      <div class="flex items-center gap-4 mb-6">
-        <div class="w-16 h-16 rounded-2xl ${a.sexo === 'Masculino' ? 'bg-blue-100 text-blue-600' : 'bg-pink-100 text-pink-500'} flex items-center justify-center">
-          <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">${a.sexo === 'Masculino' ? 'male' : 'female'}</span>
-        </div>
-        <div>
-          <h3 class="font-plus-jakarta text-xl font-bold">${a.nome}</h3>
-          <p class="text-on-surface-variant text-sm">${a.modalidade} • ${idade} anos</p>
-        </div>
-      </div>
-      <div class="space-y-3">
-        <div class="flex justify-between py-2 border-b border-gray-100">
-          <span class="text-sm text-gray-500">Nascimento</span>
-          <span class="text-sm font-semibold">${nascFormatado}</span>
-        </div>
-        <div class="flex justify-between py-2 border-b border-gray-100">
-          <span class="text-sm text-gray-500">Sexo</span>
-          <span class="text-sm font-semibold">${a.sexo}</span>
-        </div>
-        ${a.cpf ? `<div class="flex justify-between py-2 border-b border-gray-100">
-          <span class="text-sm text-gray-500">CPF</span>
-          <span class="text-sm font-semibold">${a.cpf}</span>
-        </div>` : ''}
-        ${a.telefone ? `<div class="flex justify-between py-2 border-b border-gray-100">
-          <span class="text-sm text-gray-500">Telefone</span>
-          <span class="text-sm font-semibold">${a.telefone}</span>
-        </div>` : ''}
-        ${a.endereco ? `<div class="flex justify-between py-2 border-b border-gray-100">
-          <span class="text-sm text-gray-500">Endereço</span>
-          <span class="text-sm font-semibold">${a.endereco}</span>
-        </div>` : ''}
-        ${a.responsavel ? `<div class="flex justify-between py-2 border-b border-gray-100">
-          <span class="text-sm text-gray-500">Responsável</span>
-          <span class="text-sm font-semibold">${a.responsavel}</span>
-        </div>` : ''}
-        ${a.observacoes ? `<div class="py-2 border-b border-gray-100">
-          <span class="text-sm text-gray-500 block mb-1">Observações</span>
-          <span class="text-sm">${a.observacoes}</span>
-        </div>` : ''}
-        <div class="flex justify-between py-2">
-          <span class="text-sm text-gray-500">Data do Cadastro</span>
-          <span class="text-sm font-semibold">${a.dataCadastro}</span>
-        </div>
-      </div>
+  let html = `
+    <div class="back-btn" onclick="showView('lista')">
+      <i class="fas fa-arrow-left"></i> Voltar
     </div>
-    <div class="flex gap-3">
-      ${a.telefone ? `<a href="https://wa.me/55${a.telefone.replace(/\D/g,'')}" target="_blank" class="flex-1 flex items-center justify-center gap-2 bg-green-500 text-white font-bold py-3 rounded-2xl active:scale-95 transition-transform">
-        <svg class="w-5 h-5 fill-white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        WhatsApp
-      </a>` : ''}
-      <button onclick="excluirAluno(${a.id})" class="flex-1 flex items-center justify-center gap-2 bg-red-50 text-red-600 font-bold py-3 rounded-2xl hover:bg-red-100 active:scale-95 transition-all">
-        <span class="material-symbols-outlined">delete</span>
-        Excluir
+    <h2 style="font-size:1.2rem;margin-bottom:16px;">
+      ${a['Nome do Aluno/Atleta'] || 'Atleta'}
+    </h2>`;
+
+  sections.forEach(s => {
+    const validFields = s.fields.filter(f => f[1] !== '' && f[1] !== null && f[1] !== undefined);
+    if (validFields.length === 0) return;
+    html += `
+      <div class="detail-section">
+        <div class="detail-section-header" style="background:${s.bg};${s.bg === 'var(--yellow)' ? 'color:#333;' : ''}">
+          <i class="fas ${s.icon}"></i> ${s.title}
+        </div>
+        <div class="detail-section-body">
+          ${validFields.map(f => `
+            <div class="detail-row">
+              <span class="detail-label">${f[0]}</span>
+              <span class="detail-value">${f[1]}</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>`;
+  });
+
+  // WhatsApp links
+  const zapAluno = a['WhatsApp do Aluno'];
+  const zapResp = a['WhatsApp do Responsável'];
+
+  html += `<div class="btn-group" style="margin-bottom:8px;">`;
+  if (zapAluno) {
+    html += `<a href="https://wa.me/55${cleanPhone(zapAluno)}" target="_blank" class="btn btn-success" style="text-decoration:none;">
+      <i class="fab fa-whatsapp"></i> Aluno
+    </a>`;
+  }
+  if (zapResp) {
+    html += `<a href="https://wa.me/55${cleanPhone(zapResp)}" target="_blank" class="btn btn-success" style="text-decoration:none;">
+      <i class="fab fa-whatsapp"></i> Responsável
+    </a>`;
+  }
+  html += `</div>`;
+
+  html += `
+    <div class="btn-group" style="margin-bottom:80px;">
+      <button class="btn btn-primary" onclick="editAthlete(${index})">
+        <i class="fas fa-edit"></i> Editar
       </button>
-    </div>
-  `;
-  showPage('detalhe');
+      <button class="btn btn-danger" onclick="confirmDelete(${index})">
+        <i class="fas fa-trash"></i> Excluir
+      </button>
+    </div>`;
+
+  document.getElementById('detailContent').innerHTML = html;
+  showView('detalhe');
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-tab')[0].classList.add('active');
 }
 
-function excluirAluno(id) {
-  if (!confirm('Tem certeza que deseja excluir este atleta?')) return;
-  let alunos = getAlunos();
-  alunos = alunos.filter(a => a.id !== id);
-  saveAlunos(alunos);
-  showToast('🗑️ Atleta excluído');
-  showPage('lista');
+function fmtUnit(val, unit) {
+  if (val === '' || val === null || val === undefined) return '';
+  return val + ' ' + unit;
 }
 
-// ==================== ESTATÍSTICAS ====================
-function renderEstatisticas() {
-  const alunos = getAlunos();
-  document.getElementById('statTotal').textContent = alunos.length;
-  document.getElementById('statMasc').textContent = alunos.filter(a => a.sexo === 'Masculino').length;
-  document.getElementById('statFem').textContent = alunos.filter(a => a.sexo === 'Feminino').length;
+function cleanPhone(phone) {
+  return (phone || '').toString().replace(/\D/g, '');
+}
 
-  const modalidades = {};
-  alunos.forEach(a => {
-    modalidades[a.modalidade] = (modalidades[a.modalidade] || 0) + 1;
+// ================================================================
+//  FORMULÁRIO
+// ================================================================
+function saveAthlete(e) {
+  e.preventDefault();
+  const editRow = document.getElementById('editRow').value;
+
+  const payload = {
+    nome: document.getElementById('f_nome').value,
+    sexo: document.getElementById('f_sexo').value,
+    nascimento: formatDateForSheet(document.getElementById('f_nascimento').value),
+    idade: document.getElementById('f_idade').value,
+    estatura: document.getElementById('f_estatura').value,
+    peso: document.getElementById('f_peso').value,
+    envergadura: document.getElementById('f_envergadura').value,
+    flexibilidade: document.getElementById('f_flexibilidade').value,
+    abdominal: document.getElementById('f_abdominal').value,
+    saltoH: document.getElementById('f_saltoH').value,
+    saltoV: document.getElementById('f_saltoV').value,
+    medicineBall: document.getElementById('f_medicineBall').value,
+    quadrado: document.getElementById('f_quadrado').value,
+    corrida20m: document.getElementById('f_corrida20m').value,
+    escola: document.getElementById('f_escola').value,
+    serie: document.getElementById('f_serie').value,
+    rua: document.getElementById('f_rua').value,
+    numero: document.getElementById('f_numero').value,
+    bairro: document.getElementById('f_bairro').value,
+    whatsappAluno: document.getElementById('f_whatsappAluno').value,
+    uniforme: document.getElementById('f_uniforme').value,
+    saude: document.getElementById('f_saude').value,
+    medicamento: document.getElementById('f_medicamento').value,
+    qualMedicamento: document.getElementById('f_qualMedicamento').value,
+    planoSaude: document.getElementById('f_planoSaude').value,
+    qualPlano: document.getElementById('f_qualPlano').value,
+    responsavel: document.getElementById('f_responsavel').value,
+    parentesco: document.getElementById('f_parentesco').value,
+    whatsappResponsavel: document.getElementById('f_whatsappResponsavel').value,
+    turma: document.getElementById('f_turma').value,
+  };
+
+  if (editRow) {
+    payload._action = 'edit';
+    payload._row = parseInt(editRow);
+  }
+
+  postData(payload).then(() => {
+    showToast(editRow ? '✅ Atleta atualizado!' : '✅ Atleta cadastrado!', 'success');
+    resetForm();
+    loadAthletes();
+    showView('lista');
+  }).catch(() => {});
+}
+
+function editAthlete(index) {
+  const a = allAthletes[index];
+  if (!a) return;
+
+  document.getElementById('formTitle').innerHTML = '<i class="fas fa-edit"></i> Editar Cadastro';
+  document.getElementById('editRow').value = a._row || '';
+
+  document.getElementById('f_nome').value = a['Nome do Aluno/Atleta'] || '';
+  document.getElementById('f_sexo').value = a['Sexo'] || '';
+  document.getElementById('f_nascimento').value = parseDateForInput(a['Data de Nascimento']);
+  document.getElementById('f_idade').value = a['Idade'] || '';
+  document.getElementById('f_estatura').value = a['Estatura (cm)'] || '';
+  document.getElementById('f_peso').value = a['Peso (kg)'] || '';
+  document.getElementById('f_envergadura').value = a['Envergadura (cm)'] || '';
+  document.getElementById('f_flexibilidade').value = a['Flexibilidade (cm)'] || '';
+  document.getElementById('f_abdominal').value = a['Abdominal (rep)'] || '';
+  document.getElementById('f_saltoH').value = a['Salto Horizontal (cm)'] || '';
+  document.getElementById('f_saltoV').value = a['Salto Vertical (cm)'] || '';
+  document.getElementById('f_medicineBall').value = a['Medicine Ball (cm)'] || '';
+  document.getElementById('f_quadrado').value = a['Teste do Quadrado (s)'] || '';
+  document.getElementById('f_corrida20m').value = a['Corrida 20m (s)'] || '';
+  document.getElementById('f_escola').value = a['Nome da Escola'] || '';
+  document.getElementById('f_serie').value = a['Série'] || '';
+  document.getElementById('f_rua').value = a['Rua'] || '';
+  document.getElementById('f_numero').value = a['Número'] || '';
+  document.getElementById('f_bairro').value = a['Bairro'] || '';
+  document.getElementById('f_whatsappAluno').value = a['WhatsApp do Aluno'] || '';
+  document.getElementById('f_uniforme').value = a['Tamanho do Uniforme'] || '';
+  document.getElementById('f_saude').value = a['Condição de Saúde / Limitação'] || '';
+  document.getElementById('f_medicamento').value = a['Usa medicamento contínuo?'] || '';
+  document.getElementById('f_qualMedicamento').value = a['Qual medicamento?'] || '';
+  document.getElementById('f_planoSaude').value = a['Possui plano de saúde?'] || '';
+  document.getElementById('f_qualPlano').value = a['Qual plano?'] || '';
+  document.getElementById('f_responsavel').value = a['Nome do Responsável'] || '';
+  document.getElementById('f_parentesco').value = a['Parentesco'] || '';
+  document.getElementById('f_whatsappResponsavel').value = a['WhatsApp do Responsável'] || '';
+  document.getElementById('f_turma').value = a['Turma de Treinamento'] || '';
+
+  toggleMedicamento();
+  togglePlano();
+  showView('cadastro');
+}
+
+function resetForm() {
+  document.getElementById('athleteForm').reset();
+  document.getElementById('editRow').value = '';
+  document.getElementById('formTitle').innerHTML = '<i class="fas fa-user-plus"></i> Novo Cadastro';
+  document.getElementById('grpQualMed').style.display = 'none';
+  document.getElementById('grpQualPlano').style.display = 'none';
+}
+
+function cancelForm() {
+  resetForm();
+  showView('lista');
+}
+
+function toggleMedicamento() {
+  document.getElementById('grpQualMed').style.display =
+    document.getElementById('f_medicamento').value === 'Sim' ? 'flex' : 'none';
+}
+
+function togglePlano() {
+  document.getElementById('grpQualPlano').style.display =
+    document.getElementById('f_planoSaude').value === 'Sim' ? 'flex' : 'none';
+}
+
+function formatDateForSheet(dateStr) {
+  if (!dateStr) return '';
+  const [y, m, d] = dateStr.split('-');
+  return `${d}/${m}/${y}`;
+}
+
+function parseDateForInput(dateStr) {
+  if (!dateStr) return '';
+  const parts = dateStr.toString().split('/');
+  if (parts.length === 3) return `${parts[2]}-${parts[1].padStart(2,'0')}-${parts[0].padStart(2,'0')}`;
+  return '';
+}
+
+// ================================================================
+//  DELETE
+// ================================================================
+let pendingDeleteIndex = null;
+
+function confirmDelete(index) {
+  pendingDeleteIndex = index;
+  document.getElementById('confirmModal').classList.add('show');
+  document.getElementById('confirmDeleteBtn').onclick = () => executeDelete();
+}
+
+function closeModal() {
+  document.getElementById('confirmModal').classList.remove('show');
+  pendingDeleteIndex = null;
+}
+
+async function executeDelete() {
+  closeModal();
+  const a = allAthletes[pendingDeleteIndex];
+  if (!a || !a._row) return;
+
+  try {
+    await postData({ _action: 'delete', _row: a._row });
+    showToast('🗑️ Atleta excluído!', 'info');
+    await loadAthletes();
+    showView('lista');
+  } catch (err) {}
+}
+
+// ================================================================
+//  TURMAS
+// ================================================================
+function renderTurmas() {
+  const turmas = {
+    'ALFA': { cor: '#34a853', atletas: [] },
+    'BRAVO': { cor: '#4285f4', atletas: [] },
+    'CHARLIE': { cor: '#fbbc04', atletas: [] },
+    'ECHO': { cor: '#ea4335', atletas: [] },
+    'MISTO': { cor: '#9334e6', atletas: [] },
+  };
+
+  allAthletes.forEach(a => {
+    const t = a['Turma de Treinamento'] || '';
+    if (t.startsWith('BRAVO/CHARLIE/ECHO')) turmas['MISTO'].atletas.push(a);
+    else if (t.startsWith('ALFA')) turmas['ALFA'].atletas.push(a);
+    else if (t.startsWith('BRAVO')) turmas['BRAVO'].atletas.push(a);
+    else if (t.startsWith('CHARLIE')) turmas['CHARLIE'].atletas.push(a);
+    else if (t.startsWith('ECHO')) turmas['ECHO'].atletas.push(a);
   });
 
-  document.getElementById('statModalidades').textContent = Object.keys(modalidades).length;
+  const turmaDescr = {
+    'ALFA': '7 a 10 anos — Seg/Qua/Sex — 15:00 às 16:40',
+    'BRAVO': '11 a 14 anos — Ter/Qui/Sáb — 17:00 às 18:40',
+    'CHARLIE': '11 a 14 anos — Ter/Qui/Sáb — 18:40 às 20:20',
+    'ECHO': '15 a 17 anos — Qua/Sex/Sáb — 17:40 às 19:20',
+    'MISTO': '11 a 17 anos — Sáb — 07:00 às 12:00',
+  };
 
-  const container = document.getElementById('statPorModalidade');
-  const vazio = document.getElementById('statVazio');
+  let html = '<h2 style="font-size:1.1rem;margin:16px 0;"><i class="fas fa-layer-group"></i> Turmas de Treinamento</h2>';
 
-  if (alunos.length === 0) {
-    container.innerHTML = '';
-    vazio.style.display = 'block';
-    return;
-  }
-  vazio.style.display = 'none';
+  Object.entries(turmas).forEach(([nome, info]) => {
+    html += `
+      <div class="turma-card">
+        <div class="turma-header" style="background:${info.cor};${nome==='CHARLIE'?'color:#333;':''}">
+          <span>${nome} (${info.atletas.length})</span>
+          <small style="font-weight:400;font-size:0.7rem;opacity:0.9;">${turmaDescr[nome]}</small>
+        </div>
+        <div class="turma-body">
+          ${info.atletas.length === 0 ? '<div style="padding:8px 0;color:#999;font-size:0.85rem;">Nenhum atleta</div>' :
+            info.atletas.map(a => `
+              <div class="turma-athlete">
+                <span>${a['Nome do Aluno/Atleta']}</span>
+                <span style="color:var(--gray);">${a['Idade'] ? a['Idade'] + ' anos' : ''}</span>
+              </div>
+            `).join('')}
+        </div>
+      </div>`;
+  });
 
-  const sorted = Object.entries(modalidades).sort((a, b) => b[1] - a[1]);
-  const max = sorted[0][1];
+  document.getElementById('turmasContent').innerHTML = html;
+}
 
-  container.innerHTML = sorted.map(([mod, count]) => `
-    <div class="flex items-center gap-3">
-      <span class="text-sm font-medium w-24 truncate">${mod}</span>
-      <div class="flex-1 bg-gray-100 rounded-full h-4 overflow-hidden">
-        <div class="h-full rounded-full bg-gradient-to-r from-blue-500 to-blue-600 transition-all" style="width: ${(count/max)*100}%"></div>
+// ================================================================
+//  DASHBOARD
+// ================================================================
+function renderDashboard() {
+  const total = allAthletes.length;
+  const masc = allAthletes.filter(a => a['Sexo'] === 'Masculino').length;
+  const fem = allAthletes.filter(a => a['Sexo'] === 'Feminino').length;
+
+  const turmaCount = {};
+  allAthletes.forEach(a => {
+    const code = getTurmaCode(a['Turma de Treinamento'] || '');
+    if (code) turmaCount[code] = (turmaCount[code] || 0) + 1;
+  });
+
+  const idadeCount = {};
+  allAthletes.forEach(a => {
+    const id = a['Idade'];
+    if (id) idadeCount[id] = (idadeCount[id] || 0) + 1;
+  });
+
+  const uniformeCount = {};
+  allAthletes.forEach(a => {
+    const u = a['Tamanho do Uniforme'];
+    if (u) uniformeCount[u] = (uniformeCount[u] || 0) + 1;
+  });
+
+  let html = `
+    <h2 style="font-size:1.1rem;margin:16px 0;"><i class="fas fa-chart-bar"></i> Dashboard</h2>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number">${total}</div>
+        <div class="stat-label">Total de Atletas</div>
       </div>
-      <span class="text-sm font-bold w-8 text-right">${count}</span>
-    </div>
-  `).join('');
-}
+      <div class="stat-card">
+        <div class="stat-number" style="color:var(--green);">${masc}</div>
+        <div class="stat-label">Masculino</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" style="color:#be185d;">${fem}</div>
+        <div class="stat-label">Feminino</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" style="color:var(--purple);">${Object.keys(turmaCount).length}</div>
+        <div class="stat-label">Turmas Ativas</div>
+      </div>
+    </div>`;
 
-// ==================== HOME ====================
-function updateHome() {
-  const alunos = getAlunos();
-  document.getElementById('homeCounter').textContent = `Total de ${alunos.length} atleta(s) cadastrado(s) em Ribas`;
-}
+  // Turmas breakdown
+  html += `
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-header" style="background:var(--primary);"><i class="fas fa-layer-group"></i> Por Turma</div>
+      <div class="card-body">
+        ${Object.entries(turmaCount).map(([k,v]) => `
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f0f0f0;">
+            <span style="font-weight:600;">${k}</span>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div style="width:${Math.max(v/total*150, 20)}px;height:8px;background:var(--primary);border-radius:4px;"></div>
+              <span style="font-weight:700;color:var(--primary);">${v}</span>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>`;
 
-// ==================== EXPORT ====================
-function exportData() {
-  const alunos = getAlunos();
-  if (alunos.length === 0) {
-    showToast('⚠️ Nenhum dado para exportar');
-    return;
+  // Idades breakdown
+  const sortedIdades = Object.entries(idadeCount).sort((a,b) => parseInt(a[0]) - parseInt(b[0]));
+  html += `
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-header" style="background:var(--green);"><i class="fas fa-birthday-cake"></i> Por Idade</div>
+      <div class="card-body">
+        ${sortedIdades.map(([k,v]) => `
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f0f0f0;">
+            <span style="font-weight:600;">${k} anos</span>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div style="width:${Math.max(v/total*150, 20)}px;height:8px;background:var(--green);border-radius:4px;"></div>
+              <span style="font-weight:700;color:var(--green);">${v}</span>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>`;
+
+  // Uniformes
+  if (Object.keys(uniformeCount).length > 0) {
+    html += `
+      <div class="card" style="margin-bottom:80px;">
+        <div class="card-header" style="background:var(--purple);"><i class="fas fa-tshirt"></i> Uniformes</div>
+        <div class="card-body">
+          ${Object.entries(uniformeCount).map(([k,v]) => `
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0;">
+              <span style="font-weight:600;">${k}</span>
+              <span style="font-weight:700;color:var(--purple);">${v}</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>`;
   }
-  const headers = ['Nome', 'Nascimento', 'Sexo', 'CPF', 'Telefone', 'Endereço', 'Modalidade', 'Responsável', 'Observações', 'Data Cadastro'];
-  const csv = [headers.join(';')];
-  alunos.forEach(a => {
-    csv.push([a.nome, a.nascimento, a.sexo, a.cpf, a.telefone, a.endereco, a.modalidade, a.responsavel, a.observacoes, a.dataCadastro].join(';'));
-  });
-  const blob = new Blob(['\uFEFF' + csv.join('\n')], { type: 'text/csv;charset=utf-8;' });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = 'atletas_ribas_' + new Date().toISOString().slice(0,10) + '.csv';
-  link.click();
-  URL.revokeObjectURL(url);
-  showToast('📁 Dados exportados com sucesso!');
+
+  document.getElementById('dashboardContent').innerHTML = html;
 }
 
-// ==================== INIT ====================
-showPage('home');
-</script>
+// ================================================================
+//  UTILS
+// ================================================================
+function showLoading(show) {
+  document.getElementById('loading').style.display = show ? 'flex' : 'none';
+}
 
+function showToast(msg, type = 'info') {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.className = 'toast ' + type;
+  setTimeout(() => toast.classList.add('show'), 10);
+  setTimeout(() => toast.classList.remove('show'), 3500);
+}
+</script>
 </body>
 </html>
