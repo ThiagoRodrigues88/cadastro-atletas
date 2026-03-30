@@ -1,194 +1,673 @@
 <!DOCTYPE html>
-
-<html class="light" lang="pt-br"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Cadastro Atletas - Ribas do Rio Pardo</title>
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&amp;display=swap" rel="stylesheet"/>
-<!-- Icons -->
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<!-- Tailwind -->
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              "on-tertiary-container": "#0e0200",
-              "surface-container-high": "#e6e8f2",
-              "primary-fixed-dim": "#adc7ff",
-              "on-tertiary-fixed": "#341100",
-              "surface-dim": "#d8d9e3",
-              "surface-container-low": "#f2f3fd",
-              "on-surface-variant": "#414754",
-              "tertiary": "#34a853",
-              "on-secondary": "#ffffff",
-              "on-error": "#ffffff",
-              "background": "#f9f9ff",
-              "primary-fixed": "#d8e2ff",
-              "secondary-fixed": "#d8e2ff",
-              "on-tertiary": "#ffffff",
-              "on-secondary-fixed-variant": "#2e4673",
-              "on-primary-container": "#ffffff",
-              "error-container": "#ffdad6",
-              "on-surface": "#191c23",
-              "surface-bright": "#f9f9ff",
-              "surface-container-highest": "#e0e2ec",
-              "inverse-on-surface": "#eff0fa",
-              "secondary-container": "#b2c9fe",
-              "primary-container": "#1a73e8",
-              "surface": "#f9f9ff",
-              "error": "#ba1a1a",
-              "on-primary-fixed-variant": "#004493",
-              "on-secondary-fixed": "#001a41",
-              "surface-container": "#ecedf7",
-              "on-background": "#191c23",
-              "inverse-primary": "#adc7ff",
-              "surface-container-lowest": "#ffffff",
-              "surface-variant": "#e0e2ec",
-              "primary": "#005bbf",
-              "tertiary-container": "#34a853",
-              "on-primary": "#ffffff",
-              "secondary-fixed-dim": "#afc7fb",
-              "on-primary-fixed": "#001a41",
-              "on-error-container": "#93000a",
-              "inverse-surface": "#2d3038",
-              "tertiary-fixed-dim": "#ffb691",
-              "on-secondary-container": "#3d5481",
-              "surface-tint": "#005bc0",
-              "secondary": "#475e8c",
-              "on-tertiary-fixed-variant": "#783100",
-              "tertiary-fixed": "#ffdbcb",
-              "outline-variant": "#c1c6d6",
-              "outline": "#727785"
-            },
-            fontFamily: {
-              "headline": ["Plus Jakarta Sans"],
-              "body": ["Inter"],
-              "label": ["Inter"]
-            },
-            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "3xl": "1.5rem", "full": "9999px"},
+<html class="light" lang="pt-br">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Cadastro Atletas - Ribas do Rio Pardo</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-container-high": "#e6e8f2",
+            "surface-container-low": "#f2f3fd",
+            "on-surface-variant": "#414754",
+            "tertiary": "#34a853",
+            "on-surface": "#191c23",
+            "surface-container-highest": "#e0e2ec",
+            "surface-container": "#ecedf7",
+            "surface-container-lowest": "#ffffff",
+            "surface-variant": "#e0e2ec",
+            "primary": "#005bbf",
+            "primary-container": "#1a73e8",
+            "outline-variant": "#c1c6d6",
+            "outline": "#727785",
+            "surface": "#f9f9ff",
+            "error": "#ba1a1a"
           },
+          fontFamily: {
+            "headline": ["Plus Jakarta Sans"],
+            "body": ["Inter"],
+            "label": ["Inter"]
+          },
+          borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "3xl": "1.5rem", "full": "9999px"},
         },
-      }
-    </script>
-<style>
-      .material-symbols-outlined {
-        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-      }
-      .font-plus-jakarta { font-family: 'Plus Jakarta Sans', sans-serif; }
-      .bg-mesh {
-        background-color: #f9f9ff;
-        background-image: radial-gradient(at 0% 0%, rgba(26, 115, 232, 0.05) 0px, transparent 50%), 
-                          radial-gradient(at 100% 100%, rgba(52, 168, 83, 0.05) 0px, transparent 50%);
-      }
-    </style>
-<style>
-    body {
-      min-height: max(884px, 100dvh);
+      },
     }
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .font-plus-jakarta { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .bg-mesh {
+      background-color: #f9f9ff;
+      background-image: radial-gradient(at 0% 0%, rgba(26, 115, 232, 0.05) 0px, transparent 50%), 
+                        radial-gradient(at 100% 100%, rgba(52, 168, 83, 0.05) 0px, transparent 50%);
+    }
+    body { min-height: 100dvh; }
+    .page { display: none; }
+    .page.active { display: block; }
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 60; }
+    .sidebar-overlay.open { display: block; }
+    .sidebar {
+      position: fixed; top: 0; left: -300px; width: 280px; height: 100%; 
+      background: white; z-index: 70; transition: left 0.3s ease;
+      box-shadow: 4px 0 24px rgba(0,0,0,0.1); overflow-y: auto;
+    }
+    .sidebar.open { left: 0; }
+    .help-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 80; align-items: center; justify-content: center; }
+    .help-modal.open { display: flex; }
+    .toast {
+      position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%);
+      background: #34a853; color: white; padding: 12px 24px; border-radius: 12px;
+      font-weight: 600; z-index: 100; display: none; box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    }
+    .toast.show { display: block; animation: fadeInUp 0.3s ease; }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+    .delete-btn:hover { background: #fee2e2; }
   </style>
-  </head>
+</head>
 <body class="bg-surface font-body text-on-surface min-h-screen selection:bg-primary/20 bg-mesh">
-<!-- TopAppBar -->
-<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl">
-<div class="flex items-center justify-between px-6 h-16 w-full max-w-md mx-auto">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-blue-600 dark:text-blue-400">menu</span>
-<h1 class="font-plus-jakarta text-lg font-bold tracking-tight text-blue-600 dark:text-blue-400">Cadastro Atletas</h1>
+
+<!-- SIDEBAR OVERLAY -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<!-- SIDEBAR MENU -->
+<div class="sidebar" id="sidebar">
+  <div class="bg-gradient-to-br from-blue-600 to-blue-500 text-white p-6 pb-8">
+    <div class="flex items-center justify-between mb-6">
+      <span class="font-plus-jakarta text-lg font-bold">Menu</span>
+      <span class="material-symbols-outlined cursor-pointer hover:bg-white/20 rounded-full p-1" onclick="toggleSidebar()">close</span>
+    </div>
+    <div class="flex items-center gap-3">
+      <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
+        <span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+      </div>
+      <div>
+        <p class="font-plus-jakarta font-bold">Coordenador</p>
+        <p class="text-xs text-blue-100">Ribas do Rio Pardo/MS</p>
+      </div>
+    </div>
+  </div>
+  <div class="p-4 flex flex-col gap-1">
+    <button onclick="showPage('home'); toggleSidebar();" class="flex items-center gap-4 w-full p-3 rounded-xl hover:bg-blue-50 text-left transition-colors">
+      <span class="material-symbols-outlined text-blue-600">home</span>
+      <span class="font-medium">Início</span>
+    </button>
+    <button onclick="showPage('cadastro'); toggleSidebar();" class="flex items-center gap-4 w-full p-3 rounded-xl hover:bg-blue-50 text-left transition-colors">
+      <span class="material-symbols-outlined text-green-600">person_add</span>
+      <span class="font-medium">Novo Cadastro</span>
+    </button>
+    <button onclick="showPage('lista'); toggleSidebar();" class="flex items-center gap-4 w-full p-3 rounded-xl hover:bg-blue-50 text-left transition-colors">
+      <span class="material-symbols-outlined text-blue-600">format_list_bulleted</span>
+      <span class="font-medium">Alunos Cadastrados</span>
+    </button>
+    <button onclick="showPage('estatisticas'); toggleSidebar();" class="flex items-center gap-4 w-full p-3 rounded-xl hover:bg-blue-50 text-left transition-colors">
+      <span class="material-symbols-outlined text-gray-600">insights</span>
+      <span class="font-medium">Estatísticas</span>
+    </button>
+    <hr class="my-2 border-gray-200">
+    <a href="https://wa.me/5567981856091?text=Olá! Preciso de ajuda com o Cadastro de Atletas." target="_blank" class="flex items-center gap-4 w-full p-3 rounded-xl hover:bg-green-50 text-left transition-colors">
+      <span class="material-symbols-outlined text-green-600">support_agent</span>
+      <span class="font-medium text-green-700">Ajuda via WhatsApp</span>
+    </a>
+    <button onclick="exportData();" class="flex items-center gap-4 w-full p-3 rounded-xl hover:bg-purple-50 text-left transition-colors">
+      <span class="material-symbols-outlined text-purple-600">download</span>
+      <span class="font-medium">Exportar Dados</span>
+    </button>
+  </div>
 </div>
-<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center overflow-hidden">
-<img alt="User Profile" class="w-full h-full object-cover" data-alt="professional portrait of a sports coordinator in a clean modern office setting with soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2zgCYGwGOxUUkd70hRHrJDF2GJpJ67fDobQdXwWK4X25tKm1ekYulqVuj32GgHXVza-qdGs5aSwc7EnWMvr-LubS90Ev0rB5KLA6kORT3EvVChOv5-OHB9XJ8TXfMff8hA3BhjwTAZaBvPsL7NuRbg2TUJz0Yhza3eH21TZsVXqt3EZhbDZbLutoxQxH-d9s_GEZtwpuiJfE-47qsIxx4soIs0MDsJM8QW55N-M5NkAqc-BGP06h2rpJBzjYYb-YizpsV5kGrWZue"/>
+
+<!-- HELP MODAL (WhatsApp) -->
+<div class="help-modal" id="helpModal">
+  <div class="bg-white rounded-3xl p-8 mx-6 max-w-sm w-full shadow-2xl">
+    <div class="text-center">
+      <div class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
+        <span class="material-symbols-outlined text-4xl text-green-600" style="font-variation-settings: 'FILL' 1;">support_agent</span>
+      </div>
+      <h3 class="font-plus-jakarta text-xl font-bold mb-2">Precisa de Ajuda?</h3>
+      <p class="text-on-surface-variant text-sm mb-6">Entre em contato com o suporte pelo WhatsApp para tirar dúvidas ou reportar problemas.</p>
+      <a href="https://wa.me/5567981856091?text=Olá! Preciso de ajuda com o Cadastro de Atletas." target="_blank"
+         class="w-full flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-2xl transition-colors mb-3">
+        <svg class="w-5 h-5 fill-white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Abrir WhatsApp
+      </a>
+      <button onclick="closeHelp()" class="w-full text-gray-500 hover:text-gray-700 font-medium py-2 transition-colors">Fechar</button>
+    </div>
+  </div>
 </div>
-</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- TOP BAR -->
+<header class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl">
+  <div class="flex items-center justify-between px-6 h-16 w-full max-w-md mx-auto">
+    <div class="flex items-center gap-3">
+      <span class="material-symbols-outlined text-blue-600 cursor-pointer hover:bg-blue-50 rounded-full p-1 transition-colors" onclick="toggleSidebar()">menu</span>
+      <h1 class="font-plus-jakarta text-lg font-bold tracking-tight text-blue-600" id="pageTitle">Cadastro Atletas</h1>
+    </div>
+    <div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center overflow-hidden">
+      <span class="material-symbols-outlined text-gray-500" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+    </div>
+  </div>
 </header>
-<main class="pt-24 pb-32 px-6 max-w-md mx-auto min-h-screen">
-<!-- Hero Section: Editorial Style -->
-<section class="mb-12 text-center">
-<div class="inline-flex items-center justify-center w-24 h-24 rounded-3xl bg-gradient-to-br from-primary to-primary-container shadow-2xl shadow-primary/30 mb-8 transform -rotate-3">
-<span class="material-symbols-outlined text-5xl text-white" style="font-variation-settings: 'FILL' 1;">shield_with_heart</span>
-</div>
-<h2 class="font-plus-jakarta text-4xl font-extrabold tracking-tight text-on-surface leading-tight mb-3">
-                📊 Cadastro Alunos/Atletas
-            </h2>
-<p class="text-on-surface-variant font-medium text-lg leading-relaxed max-w-[280px] mx-auto opacity-80">
-                Projeto Esportivo — Ribas do Rio Pardo/MS
-            </p>
-</section>
-<!-- Bento Grid Styled Buttons -->
-<div class="grid grid-cols-1 gap-6">
-<!-- ➕ Novo Cadastro (Large Accent Card) -->
-<button class="group relative overflow-hidden bg-surface-container-lowest rounded-3xl p-8 text-left transition-all duration-300 active:scale-95 shadow-sm hover:shadow-xl hover:shadow-tertiary/10">
-<div class="absolute top-0 right-0 w-32 h-32 bg-tertiary/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
-<div class="relative z-10">
-<div class="w-14 h-14 rounded-2xl bg-tertiary/10 flex items-center justify-center mb-6 group-hover:bg-tertiary group-hover:text-white transition-colors duration-300">
-<span class="material-symbols-outlined text-3xl text-tertiary group-hover:text-white">person_add</span>
-</div>
-<h3 class="font-plus-jakarta text-2xl font-bold text-on-surface mb-1">➕ Novo Cadastro</h3>
-<p class="text-on-surface-variant text-sm">Registre um novo aluno no projeto</p>
-</div>
-<div class="absolute bottom-6 right-8 opacity-0 group-hover:opacity-100 transition-opacity">
-<span class="material-symbols-outlined text-tertiary">arrow_forward_ios</span>
-</div>
-</button>
-<div class="grid grid-cols-2 gap-4">
-<!-- 📋 Alunos Cadastrados -->
-<button class="group bg-surface-container-lowest rounded-3xl p-6 text-left transition-all duration-300 active:scale-95 shadow-sm border-b-4 border-primary/20 hover:border-primary">
-<div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary transition-colors">
-<span class="material-symbols-outlined text-2xl text-primary group-hover:text-white">format_list_bulleted</span>
-</div>
-<h3 class="font-plus-jakarta text-lg font-bold text-on-surface leading-snug">📋 Alunos Cadastrados</h3>
-</button>
-<!-- 📊 Estatísticas -->
-<button class="group bg-surface-container-lowest rounded-3xl p-6 text-left transition-all duration-300 active:scale-95 shadow-sm border-b-4 border-surface-container-highest hover:border-on-surface-variant">
-<div class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center mb-4 group-hover:bg-on-surface-variant transition-colors">
-<span class="material-symbols-outlined text-2xl text-on-surface-variant group-hover:text-white">insights</span>
-</div>
-<h3 class="font-plus-jakarta text-lg font-bold text-on-surface leading-snug">📊 Estatísticas</h3>
-</button>
-</div>
-<!-- Quick Access / Info Section -->
-<div class="mt-4 p-6 rounded-3xl bg-surface-container-low flex items-center gap-4">
-<div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-primary shadow-sm">
-<span class="material-symbols-outlined text-xl">info</span>
-</div>
-<p class="text-xs text-on-surface-variant font-medium uppercase tracking-wider">
-                    Total de 128 atletas ativos em Ribas
-                </p>
-</div>
-</div>
+
+<!-- ==================== PÁGINAS ==================== -->
+
+<!-- PAGE: HOME -->
+<main class="page active pt-24 pb-32 px-6 max-w-md mx-auto" id="page-home">
+  <section class="mb-12 text-center">
+    <div class="inline-flex items-center justify-center w-24 h-24 rounded-3xl bg-gradient-to-br from-primary to-primary-container shadow-2xl shadow-primary/30 mb-8 transform -rotate-3">
+      <span class="material-symbols-outlined text-5xl text-white" style="font-variation-settings: 'FILL' 1;">shield_with_heart</span>
+    </div>
+    <h2 class="font-plus-jakarta text-4xl font-extrabold tracking-tight text-on-surface leading-tight mb-3">📊 Cadastro Alunos/Atletas</h2>
+    <p class="text-on-surface-variant font-medium text-lg leading-relaxed max-w-[280px] mx-auto opacity-80">Projeto Esportivo — Ribas do Rio Pardo/MS</p>
+  </section>
+  <div class="grid grid-cols-1 gap-6">
+    <button onclick="showPage('cadastro')" class="group relative overflow-hidden bg-surface-container-lowest rounded-3xl p-8 text-left transition-all duration-300 active:scale-95 shadow-sm hover:shadow-xl hover:shadow-tertiary/10">
+      <div class="absolute top-0 right-0 w-32 h-32 bg-tertiary/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+      <div class="relative z-10">
+        <div class="w-14 h-14 rounded-2xl bg-tertiary/10 flex items-center justify-center mb-6 group-hover:bg-tertiary group-hover:text-white transition-colors duration-300">
+          <span class="material-symbols-outlined text-3xl text-tertiary group-hover:text-white">person_add</span>
+        </div>
+        <h3 class="font-plus-jakarta text-2xl font-bold text-on-surface mb-1">➕ Novo Cadastro</h3>
+        <p class="text-on-surface-variant text-sm">Registre um novo aluno no projeto</p>
+      </div>
+      <div class="absolute bottom-6 right-8 opacity-0 group-hover:opacity-100 transition-opacity">
+        <span class="material-symbols-outlined text-tertiary">arrow_forward_ios</span>
+      </div>
+    </button>
+    <div class="grid grid-cols-2 gap-4">
+      <button onclick="showPage('lista')" class="group bg-surface-container-lowest rounded-3xl p-6 text-left transition-all duration-300 active:scale-95 shadow-sm border-b-4 border-primary/20 hover:border-primary">
+        <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary transition-colors">
+          <span class="material-symbols-outlined text-2xl text-primary group-hover:text-white">format_list_bulleted</span>
+        </div>
+        <h3 class="font-plus-jakarta text-lg font-bold text-on-surface leading-snug">📋 Alunos Cadastrados</h3>
+      </button>
+      <button onclick="showPage('estatisticas')" class="group bg-surface-container-lowest rounded-3xl p-6 text-left transition-all duration-300 active:scale-95 shadow-sm border-b-4 border-surface-container-highest hover:border-on-surface-variant">
+        <div class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center mb-4 group-hover:bg-on-surface-variant transition-colors">
+          <span class="material-symbols-outlined text-2xl text-on-surface-variant group-hover:text-white">insights</span>
+        </div>
+        <h3 class="font-plus-jakarta text-lg font-bold text-on-surface leading-snug">📊 Estatísticas</h3>
+      </button>
+    </div>
+    <div class="mt-4 p-6 rounded-3xl bg-surface-container-low flex items-center gap-4">
+      <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-primary shadow-sm">
+        <span class="material-symbols-outlined text-xl">info</span>
+      </div>
+      <p class="text-xs text-on-surface-variant font-medium uppercase tracking-wider" id="homeCounter">Total de 0 atletas cadastrados</p>
+    </div>
+  </div>
 </main>
-<!-- FAB: Help/Support (Asymmetric placement as per system) -->
-<button class="fixed bottom-24 right-6 w-14 h-14 bg-gradient-to-br from-primary to-primary-container text-white rounded-xl shadow-[0_8px_24px_rgba(25,28,35,0.2)] flex items-center justify-center z-40 active:scale-90 transition-transform">
-<span class="material-symbols-outlined">support_agent</span>
-</button>
-<!-- BottomNavBar -->
-<nav class="fixed bottom-0 w-full rounded-t-3xl pb-safe z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl shadow-[0_-8px_24px_rgba(25,28,35,0.06)]">
-<div class="flex justify-around items-center px-4 py-3 w-full max-w-md mx-auto">
-<!-- Home (Active) -->
-<a class="flex flex-col items-center justify-center bg-gradient-to-br from-blue-600 to-blue-500 text-white rounded-2xl px-5 py-2 scale-110 shadow-lg shadow-blue-500/30" href="#">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
-<span class="font-plus-jakarta text-[10px] font-bold uppercase tracking-widest mt-0.5">Home</span>
+
+<!-- PAGE: CADASTRO -->
+<main class="page pt-24 pb-32 px-6 max-w-md mx-auto" id="page-cadastro">
+  <section class="mb-6">
+    <button onclick="showPage('home')" class="flex items-center gap-1 text-blue-600 mb-4 hover:underline">
+      <span class="material-symbols-outlined text-sm">arrow_back</span> Voltar
+    </button>
+    <h2 class="font-plus-jakarta text-2xl font-extrabold tracking-tight mb-1">➕ Novo Cadastro</h2>
+    <p class="text-on-surface-variant text-sm">Preencha os dados do aluno/atleta</p>
+  </section>
+  <form id="formCadastro" class="space-y-4" onsubmit="salvarCadastro(event)">
+    <div>
+      <label class="block text-sm font-semibold mb-1">Nome Completo *</label>
+      <input type="text" id="nome" required placeholder="Ex: João Silva" class="w-full px-4 py-3 rounded-2xl border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 bg-white transition-all">
+    </div>
+    <div class="grid grid-cols-2 gap-3">
+      <div>
+        <label class="block text-sm font-semibold mb-1">Data de Nascimento *</label>
+        <input type="date" id="nascimento" required class="w-full px-4 py-3 rounded-2xl border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 bg-white transition-all">
+      </div>
+      <div>
+        <label class="block text-sm font-semibold mb-1">Sexo *</label>
+        <select id="sexo" required class="w-full px-4 py-3 rounded-2xl border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 bg-white transition-all">
+          <option value="">Selecione</option>
+          <option value="Masculino">Masculino</option>
+          <option value="Feminino">Feminino</option>
+        </select>
+      </div>
+    </div>
+    <div>
+      <label class="block text-sm font-semibold mb-1">CPF</label>
+      <input type="text" id="cpf" placeholder="000.000.000-00" maxlength="14" oninput="mascaraCPF(this)" class="w-full px-4 py-3 rounded-2xl border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 bg-white transition-all">
+    </div>
+    <div>
+      <label class="block text-sm font-semibold mb-1">Telefone / WhatsApp</label>
+      <input type="tel" id="telefone" placeholder="(67) 99999-9999" maxlength="15" oninput="mascaraTelefone(this)" class="w-full px-4 py-3 rounded-2xl border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 bg-white transition-all">
+    </div>
+    <div>
+      <label class="block text-sm font-semibold mb-1">Endereço</label>
+      <input type="text" id="endereco" placeholder="Rua, número, bairro" class="w-full px-4 py-3 rounded-2xl border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 bg-white transition-all">
+    </div>
+    <div>
+      <label class="block text-sm font-semibold mb-1">Modalidade *</label>
+      <select id="modalidade" required class="w-full px-4 py-3 rounded-2xl border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 bg-white transition-all">
+        <option value="">Selecione</option>
+        <option value="Futebol">⚽ Futebol</option>
+        <option value="Futsal">⚽ Futsal</option>
+        <option value="Vôlei">🏐 Vôlei</option>
+        <option value="Basquete">🏀 Basquete</option>
+        <option value="Handebol">🤾 Handebol</option>
+        <option value="Atletismo">🏃 Atletismo</option>
+        <option value="Natação">🏊 Natação</option>
+        <option value="Judô">🥋 Judô</option>
+        <option value="Karatê">🥋 Karatê</option>
+        <option value="Capoeira">🤸 Capoeira</option>
+        <option value="Outro">Outro</option>
+      </select>
+    </div>
+    <div>
+      <label class="block text-sm font-semibold mb-1">Nome do Responsável</label>
+      <input type="text" id="responsavel" placeholder="(para menores de 18 anos)" class="w-full px-4 py-3 rounded-2xl border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 bg-white transition-all">
+    </div>
+    <div>
+      <label class="block text-sm font-semibold mb-1">Observações</label>
+      <textarea id="observacoes" rows="3" placeholder="Alguma informação adicional..." class="w-full px-4 py-3 rounded-2xl border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 bg-white transition-all resize-none"></textarea>
+    </div>
+    <button type="submit" class="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-4 rounded-2xl shadow-lg shadow-green-500/30 transition-all active:scale-95 flex items-center justify-center gap-2 mt-6">
+      <span class="material-symbols-outlined">save</span>
+      Salvar Cadastro
+    </button>
+  </form>
+</main>
+
+<!-- PAGE: LISTA -->
+<main class="page pt-24 pb-32 px-6 max-w-md mx-auto" id="page-lista">
+  <section class="mb-6">
+    <button onclick="showPage('home')" class="flex items-center gap-1 text-blue-600 mb-4 hover:underline">
+      <span class="material-symbols-outlined text-sm">arrow_back</span> Voltar
+    </button>
+    <h2 class="font-plus-jakarta text-2xl font-extrabold tracking-tight mb-1">📋 Alunos Cadastrados</h2>
+    <p class="text-on-surface-variant text-sm" id="listaSubtitle">0 atletas encontrados</p>
+  </section>
+  <div class="mb-4">
+    <input type="text" id="busca" oninput="filtrarLista()" placeholder="🔍 Buscar por nome ou modalidade..." class="w-full px-4 py-3 rounded-2xl border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 bg-white transition-all">
+  </div>
+  <div id="listaAlunos" class="space-y-3"></div>
+</main>
+
+<!-- PAGE: ESTATÍSTICAS -->
+<main class="page pt-24 pb-32 px-6 max-w-md mx-auto" id="page-estatisticas">
+  <section class="mb-6">
+    <button onclick="showPage('home')" class="flex items-center gap-1 text-blue-600 mb-4 hover:underline">
+      <span class="material-symbols-outlined text-sm">arrow_back</span> Voltar
+    </button>
+    <h2 class="font-plus-jakarta text-2xl font-extrabold tracking-tight mb-1">📊 Estatísticas</h2>
+    <p class="text-on-surface-variant text-sm">Resumo do projeto esportivo</p>
+  </section>
+  <div class="grid grid-cols-2 gap-4 mb-6">
+    <div class="bg-white rounded-2xl p-5 shadow-sm text-center">
+      <p class="text-3xl font-extrabold text-blue-600 font-plus-jakarta" id="statTotal">0</p>
+      <p class="text-xs text-on-surface-variant font-semibold mt-1">Total de Atletas</p>
+    </div>
+    <div class="bg-white rounded-2xl p-5 shadow-sm text-center">
+      <p class="text-3xl font-extrabold text-green-600 font-plus-jakarta" id="statModalidades">0</p>
+      <p class="text-xs text-on-surface-variant font-semibold mt-1">Modalidades</p>
+    </div>
+    <div class="bg-white rounded-2xl p-5 shadow-sm text-center">
+      <p class="text-3xl font-extrabold text-purple-600 font-plus-jakarta" id="statMasc">0</p>
+      <p class="text-xs text-on-surface-variant font-semibold mt-1">Masculino</p>
+    </div>
+    <div class="bg-white rounded-2xl p-5 shadow-sm text-center">
+      <p class="text-3xl font-extrabold text-pink-500 font-plus-jakarta" id="statFem">0</p>
+      <p class="text-xs text-on-surface-variant font-semibold mt-1">Feminino</p>
+    </div>
+  </div>
+  <div class="bg-white rounded-2xl p-5 shadow-sm mb-4">
+    <h3 class="font-plus-jakarta font-bold mb-3">Por Modalidade</h3>
+    <div id="statPorModalidade" class="space-y-2"></div>
+    <p id="statVazio" class="text-sm text-gray-400 text-center py-4">Nenhum dado ainda</p>
+  </div>
+</main>
+
+<!-- PAGE: DETALHE DO ALUNO -->
+<main class="page pt-24 pb-32 px-6 max-w-md mx-auto" id="page-detalhe">
+  <section class="mb-6">
+    <button onclick="showPage('lista')" class="flex items-center gap-1 text-blue-600 mb-4 hover:underline">
+      <span class="material-symbols-outlined text-sm">arrow_back</span> Voltar à lista
+    </button>
+  </section>
+  <div id="detalheConteudo"></div>
+</main>
+
+<!-- FAB: WhatsApp Help -->
+<a href="https://wa.me/5567981856091?text=Olá! Preciso de ajuda com o Cadastro de Atletas." target="_blank"
+   class="fixed bottom-24 left-6 w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 text-white rounded-xl shadow-[0_8px_24px_rgba(25,28,35,0.2)] flex items-center justify-center z-40 active:scale-90 transition-transform hover:shadow-xl">
+  <svg class="w-7 h-7 fill-white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
-<!-- Atletas -->
-<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-2 hover:text-blue-500 dark:hover:text-blue-300 transition-all" href="#">
-<span class="material-symbols-outlined">format_list_bulleted</span>
-<span class="font-plus-jakarta text-[10px] font-bold uppercase tracking-widest mt-0.5">Atletas</span>
-</a>
-<!-- Status -->
-<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-2 hover:text-blue-500 dark:hover:text-blue-300 transition-all" href="#">
-<span class="material-symbols-outlined">insights</span>
-<span class="font-plus-jakarta text-[10px] font-bold uppercase tracking-widest mt-0.5">Status</span>
-</a>
-</div>
+
+<!-- BOTTOM NAV -->
+<nav class="fixed bottom-0 w-full rounded-t-3xl pb-safe z-50 bg-white/80 backdrop-blur-2xl shadow-[0_-8px_24px_rgba(25,28,35,0.06)]">
+  <div class="flex justify-around items-center px-4 py-3 w-full max-w-md mx-auto">
+    <button onclick="showPage('home')" id="nav-home" class="nav-btn flex flex-col items-center justify-center px-5 py-2 rounded-2xl transition-all">
+      <span class="material-symbols-outlined">home</span>
+      <span class="font-plus-jakarta text-[10px] font-bold uppercase tracking-widest mt-0.5">Home</span>
+    </button>
+    <button onclick="showPage('lista')" id="nav-lista" class="nav-btn flex flex-col items-center justify-center px-4 py-2 rounded-2xl transition-all">
+      <span class="material-symbols-outlined">format_list_bulleted</span>
+      <span class="font-plus-jakarta text-[10px] font-bold uppercase tracking-widest mt-0.5">Atletas</span>
+    </button>
+    <button onclick="showPage('estatisticas')" id="nav-estatisticas" class="nav-btn flex flex-col items-center justify-center px-4 py-2 rounded-2xl transition-all">
+      <span class="material-symbols-outlined">insights</span>
+      <span class="font-plus-jakarta text-[10px] font-bold uppercase tracking-widest mt-0.5">Status</span>
+    </button>
+  </div>
 </nav>
-<!-- Image for visual depth (absolute positioning, editorial background element) -->
+
+<!-- BACKGROUND DECORATION -->
 <div class="fixed top-1/2 -right-20 -z-10 opacity-10 pointer-events-none transform -translate-y-1/2">
-<img alt="Sport Background Decor" class="w-[400px]" data-alt="Dynamic abstract close-up of a professional soccer ball with water droplets flying off during a high-speed motion shot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeZQI6nqC5UgjXmIXptwBN1QR0NOrq2xEd4gBbYYvJi5KjMP_04Fko4QAJYCZKdPPU-rNkNQQAlam4PF2LmZiK8cTLBr3QpKOjXZN79GflzCvgklcIUmJQbRFgt6KppSQQGVVIIQjH4ZcAiaJMQ27lUNBOi2yQ4EMXcUIz_eddSCL_9GU4Mka2MJAik8_dT7ioqeDdrDLcgxB1ZKr8l-l6weTgvZJUus-QouSIBawRo7iguGQqv4GDYRlLEUgPcj-ucYGMgn5BiSz4"/>
+  <img alt="Sport Background" class="w-[400px]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeZQI6nqC5UgjXmIXptwBN1QR0NOrq2xEd4gBbYYvJi5KjMP_04Fko4QAJYCZKdPPU-rNkNQQAlam4PF2LmZiK8cTLBr3QpKOjXZN79GflzCvgklcIUmJQbRFgt6KppSQQGVVIIQjH4ZcAiaJMQ27lUNBOi2yQ4EMXcUIz_eddSCL_9GU4Mka2MJAik8_dT7ioqeDdrDLcgxB1ZKr8l-l6weTgvZJUus-QouSIBawRo7iguGQqv4GDYRlLEUgPcj-ucYGMgn5BiSz4"/>
 </div>
-</body></html>
+
+<script>
+// ==================== DATABASE (localStorage) ====================
+function getAlunos() {
+  return JSON.parse(localStorage.getItem('atletas_ribas') || '[]');
+}
+function saveAlunos(alunos) {
+  localStorage.setItem('atletas_ribas', JSON.stringify(alunos));
+}
+
+// ==================== NAVIGATION ====================
+function showPage(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const el = document.getElementById('page-' + page);
+  if (el) el.classList.add('active');
+
+  // Update nav
+  document.querySelectorAll('.nav-btn').forEach(btn => {
+    btn.className = 'nav-btn flex flex-col items-center justify-center px-4 py-2 rounded-2xl transition-all text-slate-400';
+    btn.querySelector('.material-symbols-outlined').style.fontVariationSettings = "'FILL' 0";
+  });
+  const activeNav = document.getElementById('nav-' + page);
+  if (activeNav) {
+    activeNav.className = 'nav-btn flex flex-col items-center justify-center bg-gradient-to-br from-blue-600 to-blue-500 text-white rounded-2xl px-5 py-2 scale-110 shadow-lg shadow-blue-500/30 transition-all';
+    activeNav.querySelector('.material-symbols-outlined').style.fontVariationSettings = "'FILL' 1";
+  }
+
+  // Update title
+  const titles = { home: 'Cadastro Atletas', cadastro: 'Novo Cadastro', lista: 'Alunos Cadastrados', estatisticas: 'Estatísticas', detalhe: 'Detalhes do Aluno' };
+  document.getElementById('pageTitle').textContent = titles[page] || 'Cadastro Atletas';
+
+  // Refresh data
+  if (page === 'home') updateHome();
+  if (page === 'lista') renderLista();
+  if (page === 'estatisticas') renderEstatisticas();
+
+  window.scrollTo(0, 0);
+}
+
+// ==================== SIDEBAR ====================
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('open');
+}
+
+// ==================== HELP MODAL ====================
+function openHelp() {
+  document.getElementById('helpModal').classList.add('open');
+}
+function closeHelp() {
+  document.getElementById('helpModal').classList.remove('open');
+}
+
+// ==================== TOAST ====================
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ==================== MASKS ====================
+function mascaraCPF(input) {
+  let v = input.value.replace(/\D/g, '');
+  v = v.replace(/(\d{3})(\d)/, '$1.$2');
+  v = v.replace(/(\d{3})(\d)/, '$1.$2');
+  v = v.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+  input.value = v;
+}
+function mascaraTelefone(input) {
+  let v = input.value.replace(/\D/g, '');
+  v = v.replace(/^(\d{2})(\d)/, '($1) $2');
+  v = v.replace(/(\d{5})(\d)/, '$1-$2');
+  input.value = v;
+}
+
+// ==================== CADASTRO ====================
+function salvarCadastro(e) {
+  e.preventDefault();
+  const aluno = {
+    id: Date.now(),
+    nome: document.getElementById('nome').value.trim(),
+    nascimento: document.getElementById('nascimento').value,
+    sexo: document.getElementById('sexo').value,
+    cpf: document.getElementById('cpf').value.trim(),
+    telefone: document.getElementById('telefone').value.trim(),
+    endereco: document.getElementById('endereco').value.trim(),
+    modalidade: document.getElementById('modalidade').value,
+    responsavel: document.getElementById('responsavel').value.trim(),
+    observacoes: document.getElementById('observacoes').value.trim(),
+    dataCadastro: new Date().toLocaleDateString('pt-BR')
+  };
+  const alunos = getAlunos();
+  alunos.push(aluno);
+  saveAlunos(alunos);
+  document.getElementById('formCadastro').reset();
+  showToast('✅ Atleta cadastrado com sucesso!');
+  setTimeout(() => showPage('lista'), 1000);
+}
+
+// ==================== LISTA ====================
+function renderLista(filtro = '') {
+  const alunos = getAlunos();
+  const container = document.getElementById('listaAlunos');
+  const subtitle = document.getElementById('listaSubtitle');
+  
+  let filtered = alunos;
+  if (filtro) {
+    const f = filtro.toLowerCase();
+    filtered = alunos.filter(a => a.nome.toLowerCase().includes(f) || a.modalidade.toLowerCase().includes(f));
+  }
+
+  subtitle.textContent = filtered.length + ' atleta(s) encontrado(s)';
+
+  if (filtered.length === 0) {
+    container.innerHTML = `
+      <div class="text-center py-12">
+        <span class="material-symbols-outlined text-6xl text-gray-300 mb-4">person_off</span>
+        <p class="text-gray-400 font-medium">${filtro ? 'Nenhum resultado encontrado' : 'Nenhum atleta cadastrado ainda'}</p>
+        ${!filtro ? '<button onclick="showPage(\'cadastro\')" class="mt-4 text-blue-600 font-bold hover:underline">+ Cadastrar primeiro atleta</button>' : ''}
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = filtered.map(a => `
+    <div class="bg-white rounded-2xl p-4 shadow-sm flex items-center gap-4 cursor-pointer hover:shadow-md transition-shadow active:scale-[0.98]" onclick="verDetalhe(${a.id})">
+      <div class="w-12 h-12 rounded-xl ${a.sexo === 'Masculino' ? 'bg-blue-100 text-blue-600' : 'bg-pink-100 text-pink-500'} flex items-center justify-center flex-shrink-0">
+        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">${a.sexo === 'Masculino' ? 'male' : 'female'}</span>
+      </div>
+      <div class="flex-1 min-w-0">
+        <p class="font-plus-jakarta font-bold text-on-surface truncate">${a.nome}</p>
+        <p class="text-xs text-on-surface-variant">${a.modalidade} • ${a.dataCadastro}</p>
+      </div>
+      <span class="material-symbols-outlined text-gray-300">chevron_right</span>
+    </div>
+  `).join('');
+}
+
+function filtrarLista() {
+  renderLista(document.getElementById('busca').value);
+}
+
+// ==================== DETALHE ====================
+function verDetalhe(id) {
+  const alunos = getAlunos();
+  const a = alunos.find(x => x.id === id);
+  if (!a) return;
+
+  function calcIdade(nasc) {
+    const hoje = new Date();
+    const n = new Date(nasc);
+    let idade = hoje.getFullYear() - n.getFullYear();
+    const m = hoje.getMonth() - n.getMonth();
+    if (m < 0 || (m === 0 && hoje.getDate() < n.getDate())) idade--;
+    return idade;
+  }
+
+  const idade = calcIdade(a.nascimento);
+  const nascFormatado = new Date(a.nascimento + 'T00:00:00').toLocaleDateString('pt-BR');
+
+  document.getElementById('detalheConteudo').innerHTML = `
+    <div class="bg-white rounded-3xl p-6 shadow-sm mb-4">
+      <div class="flex items-center gap-4 mb-6">
+        <div class="w-16 h-16 rounded-2xl ${a.sexo === 'Masculino' ? 'bg-blue-100 text-blue-600' : 'bg-pink-100 text-pink-500'} flex items-center justify-center">
+          <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">${a.sexo === 'Masculino' ? 'male' : 'female'}</span>
+        </div>
+        <div>
+          <h3 class="font-plus-jakarta text-xl font-bold">${a.nome}</h3>
+          <p class="text-on-surface-variant text-sm">${a.modalidade} • ${idade} anos</p>
+        </div>
+      </div>
+      <div class="space-y-3">
+        <div class="flex justify-between py-2 border-b border-gray-100">
+          <span class="text-sm text-gray-500">Nascimento</span>
+          <span class="text-sm font-semibold">${nascFormatado}</span>
+        </div>
+        <div class="flex justify-between py-2 border-b border-gray-100">
+          <span class="text-sm text-gray-500">Sexo</span>
+          <span class="text-sm font-semibold">${a.sexo}</span>
+        </div>
+        ${a.cpf ? `<div class="flex justify-between py-2 border-b border-gray-100">
+          <span class="text-sm text-gray-500">CPF</span>
+          <span class="text-sm font-semibold">${a.cpf}</span>
+        </div>` : ''}
+        ${a.telefone ? `<div class="flex justify-between py-2 border-b border-gray-100">
+          <span class="text-sm text-gray-500">Telefone</span>
+          <span class="text-sm font-semibold">${a.telefone}</span>
+        </div>` : ''}
+        ${a.endereco ? `<div class="flex justify-between py-2 border-b border-gray-100">
+          <span class="text-sm text-gray-500">Endereço</span>
+          <span class="text-sm font-semibold">${a.endereco}</span>
+        </div>` : ''}
+        ${a.responsavel ? `<div class="flex justify-between py-2 border-b border-gray-100">
+          <span class="text-sm text-gray-500">Responsável</span>
+          <span class="text-sm font-semibold">${a.responsavel}</span>
+        </div>` : ''}
+        ${a.observacoes ? `<div class="py-2 border-b border-gray-100">
+          <span class="text-sm text-gray-500 block mb-1">Observações</span>
+          <span class="text-sm">${a.observacoes}</span>
+        </div>` : ''}
+        <div class="flex justify-between py-2">
+          <span class="text-sm text-gray-500">Data do Cadastro</span>
+          <span class="text-sm font-semibold">${a.dataCadastro}</span>
+        </div>
+      </div>
+    </div>
+    <div class="flex gap-3">
+      ${a.telefone ? `<a href="https://wa.me/55${a.telefone.replace(/\D/g,'')}" target="_blank" class="flex-1 flex items-center justify-center gap-2 bg-green-500 text-white font-bold py-3 rounded-2xl active:scale-95 transition-transform">
+        <svg class="w-5 h-5 fill-white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+      </a>` : ''}
+      <button onclick="excluirAluno(${a.id})" class="flex-1 flex items-center justify-center gap-2 bg-red-50 text-red-600 font-bold py-3 rounded-2xl hover:bg-red-100 active:scale-95 transition-all">
+        <span class="material-symbols-outlined">delete</span>
+        Excluir
+      </button>
+    </div>
+  `;
+  showPage('detalhe');
+}
+
+function excluirAluno(id) {
+  if (!confirm('Tem certeza que deseja excluir este atleta?')) return;
+  let alunos = getAlunos();
+  alunos = alunos.filter(a => a.id !== id);
+  saveAlunos(alunos);
+  showToast('🗑️ Atleta excluído');
+  showPage('lista');
+}
+
+// ==================== ESTATÍSTICAS ====================
+function renderEstatisticas() {
+  const alunos = getAlunos();
+  document.getElementById('statTotal').textContent = alunos.length;
+  document.getElementById('statMasc').textContent = alunos.filter(a => a.sexo === 'Masculino').length;
+  document.getElementById('statFem').textContent = alunos.filter(a => a.sexo === 'Feminino').length;
+
+  const modalidades = {};
+  alunos.forEach(a => {
+    modalidades[a.modalidade] = (modalidades[a.modalidade] || 0) + 1;
+  });
+
+  document.getElementById('statModalidades').textContent = Object.keys(modalidades).length;
+
+  const container = document.getElementById('statPorModalidade');
+  const vazio = document.getElementById('statVazio');
+
+  if (alunos.length === 0) {
+    container.innerHTML = '';
+    vazio.style.display = 'block';
+    return;
+  }
+  vazio.style.display = 'none';
+
+  const sorted = Object.entries(modalidades).sort((a, b) => b[1] - a[1]);
+  const max = sorted[0][1];
+
+  container.innerHTML = sorted.map(([mod, count]) => `
+    <div class="flex items-center gap-3">
+      <span class="text-sm font-medium w-24 truncate">${mod}</span>
+      <div class="flex-1 bg-gray-100 rounded-full h-4 overflow-hidden">
+        <div class="h-full rounded-full bg-gradient-to-r from-blue-500 to-blue-600 transition-all" style="width: ${(count/max)*100}%"></div>
+      </div>
+      <span class="text-sm font-bold w-8 text-right">${count}</span>
+    </div>
+  `).join('');
+}
+
+// ==================== HOME ====================
+function updateHome() {
+  const alunos = getAlunos();
+  document.getElementById('homeCounter').textContent = `Total de ${alunos.length} atleta(s) cadastrado(s) em Ribas`;
+}
+
+// ==================== EXPORT ====================
+function exportData() {
+  const alunos = getAlunos();
+  if (alunos.length === 0) {
+    showToast('⚠️ Nenhum dado para exportar');
+    return;
+  }
+  const headers = ['Nome', 'Nascimento', 'Sexo', 'CPF', 'Telefone', 'Endereço', 'Modalidade', 'Responsável', 'Observações', 'Data Cadastro'];
+  const csv = [headers.join(';')];
+  alunos.forEach(a => {
+    csv.push([a.nome, a.nascimento, a.sexo, a.cpf, a.telefone, a.endereco, a.modalidade, a.responsavel, a.observacoes, a.dataCadastro].join(';'));
+  });
+  const blob = new Blob(['\uFEFF' + csv.join('\n')], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'atletas_ribas_' + new Date().toISOString().slice(0,10) + '.csv';
+  link.click();
+  URL.revokeObjectURL(url);
+  showToast('📁 Dados exportados com sucesso!');
+}
+
+// ==================== INIT ====================
+showPage('home');
+</script>
+
+</body>
+</html>
